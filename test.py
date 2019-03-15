@@ -11,4 +11,6 @@ print(cur.execute("select column_name from information_schema.columns where tabl
 #print(cur.execute("dt;"))
 print(cur.fetchall())
 
+# Instead of manually creating categories, it may be worth seeing whether there are correlations 
+# between ratings in certain areas across students that allow us to group them more effectively.
 
