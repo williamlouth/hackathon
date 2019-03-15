@@ -24,6 +24,7 @@ a = pd.read_sql("select storm_stint.student_id,type,grade from storm_stint inner
 cur.execute("update storm_student set bar_number=0;" )
 nump = c.values
 for j in range(18):
+    print(j)
     key_num_test = keywords_vals[j] +'_number'
     key_total_test = keywords_vals[j] +'_total'
     key_average_test = keywords_vals[j] +'_average'
