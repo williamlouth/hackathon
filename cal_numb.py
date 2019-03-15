@@ -1,4 +1,5 @@
 import numpy as np
+from psycopg2 import sql
 import math
 import pandas as pd
 import psycopg2 as py
@@ -39,7 +40,8 @@ for j in range(18):
                 if b[1] == to_test:
                     print(key_num_test[0])
                     print(b[0])
-                    cur.execute("select %s from storm_student where baseuser_ptr_id=%s;",(str(key_num_test[0]),int(b[0])))
+                    #cur.execute("select %s from storm_student where baseuser_ptr_id=%s;",(str(key_num_test[0]),int(b[0])))
+                    cur.execute(sql.SQL("select {} from storm_student where baseuser_ptr_id=%s;").format(sql.Identifier(key_num_test[0])),[int(b[0])])
                     #query = "select %s from storm_student where baseuser_ptr_id=%s;"
                     #cur.execute(query,([key_num_test[0]],int(b[0])))
                     #cur.execute("select bar_number from storm_student where baseuser_ptr_id =%s;" , int(b[0]))     c = cur.fetchall()
@@ -51,6 +53,8 @@ for j in range(18):
                     print(d)
                     d+=1
                     cur.execute("update storm_student set %s=%s where baseuser_ptr_id=%s;" , (num_test,d,int(b[0])) )
+
+                    cur.execute(sql.SQL("update storm_student set %s=%s where baseuser_ptr_id=%s;").format(sql.Identifier(key_num_test[0])),[int(b[0])])
                     
 
 #for i in range(a.shape[0]):
