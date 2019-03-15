@@ -6,3 +6,8 @@ conn = login.conn
 cur = conn.cursor()
 print(cur.execute("select * FROM storm_stint LIMIT 1;"))
 print(cur.fetchall())
+print(cur.execute("select column_name from information_schema.columns where table_name = 'storm_business';"))
+#print(cur.execute("dt;"))
+print(cur.fetchall())
+
+
