@@ -2,9 +2,8 @@ import numpy as np
 import math
 import pandas as pd
 import psycopg2 as py
-import login
 
-conn = login.conn
+conn = py.connect("dbname=hackathon user=postgres password=pw")
 
 cur = conn.cursor()
 #cur.execute("select storm_stint.student_id,type,grade from storm_stint inner join storm_review on storm_stint.id = storm_review.stint_id;")
