@@ -38,10 +38,13 @@ def isAvailable(stintid,studentid):
         ii = [toSeconds(stinttime[3].replace(tzinfo=None))] + [toSeconds(stinttime[5].replace(tzinfo=None))]
         stinttimes.append(ii)
 
+
     stinttimes = stinttimes[0]
 
     cur.execute(sql.SQL("select * from storm_studentavailability where student_id=%s;"),[studentid])
     studentdata = cur.fetchall()
+
+
 
     studenttimes = []
 
@@ -59,12 +62,24 @@ def isAvailable(stintid,studentid):
 
     sorted_studenttimes = mergetime.merge_times(Sort(studenttimes))
 
+    print(stinttimes)
+    print(stinttimes[0])
+    print(stinttimes[1])
+    print("stop")
+
+
     # Testing if stint time is included in one of the student times
 
+
     for time in sorted_studenttimes:
-        if time[0] < stinttimes[0] and time[1] > stinttimes[1]:
+        print(time)
+        print(time[0])
+        print(time[1])
+
+        
+        
+        if (time[0] <= stinttimes[0]) and (time[1] >= stinttimes[1]):
             return True
     return False
     
-
-#print(isAvailable(1,6))
+#print(isAvailable(3598,6))
