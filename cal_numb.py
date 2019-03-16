@@ -9,9 +9,6 @@ import login
 
 conn =  login.conn
 cur = conn.cursor()
-#cur.execute("select storm_stint.student_id,type,grade from storm_stint inner join storm_review on storm_stint.id = storm_review.stint_id;")
-#cur.execute("select * from storm_student LIMIT 1;")
-#print(cur.fetchall())
 c = pd.read_excel('txt/possible_entries.xlsx')
 keywords = pd.read_excel('txt/keywords.xlsx')
 keywords_vals = keywords.values
@@ -20,13 +17,10 @@ def distribution_maker(bus_id):
     cur.execute(sql.SQL("select past_5, past_4,past_3,past_2,past_1 from  storm_business where id = %s;"),[int(bus_id)])
     distribution = cur.fetchall()[0]
     if sum(distribution) > 20:
-        #print(len(distribution))
-        #print(distribution)
         return distribution
     else:
         cur.execute(sql.SQL("select sum(past_5), sum(past_4),sum(past_3),sum(past_2),sum(past_1) from  storm_business;"))
         distribution = cur.fetchall()[0]
-        #print(len(distribution))
         return distribution
 
 a = pd.read_sql("select storm_stint.student_id,type,grade,storm_review.business_id from storm_stint inner join storm_review on storm_stint.id = storm_review.stint_id;",conn)
