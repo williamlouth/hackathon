@@ -1,3 +1,6 @@
+import numpy as np
+from psycopg2 import sql
+import math
 import pandas as pd
 import psycopg2 as py
 import login
@@ -42,7 +45,19 @@ for k in reviews:
 
 print(scores)
 
+# Setting total scores fields to 0
 
+cur.execute(sql.SQL("update storm_student set {}=0;").format(sql.Identifier("total_score")))
+cur.execute(sql.SQL("update storm_student set {}=0.0;").format(sql.Identifier("total_number")))
+cur.execute(sql.SQL("update storm_student set {}=0.0;").format(sql.Identifier("total_average")))
+cur.execute("commit;")
 
+# Adding total scores data
 
+for score in scores:
 
+    cur.execute("update storm_student set total_score = %s where baseuser_ptr_id = %s;",[score[1],score[0]])  
+    cur.execute("update storm_student set total_number = %s where baseuser_ptr_id = %s;",[score[2],score[0]])  
+    cur.execute("update storm_student set total_average = %s where baseuser_ptr_id = %s;",[score[3],score[0]])  
+
+cur.execute("commit;")
