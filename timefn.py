@@ -1,3 +1,6 @@
+import numpy as np
+from psycopg2 import sql
+import math
 import pandas as pd
 import psycopg2 as py
 import login
@@ -5,11 +8,24 @@ import login
 conn = login.conn
 cur = conn.cursor()
 
+cur.execute("select * from storm_studentavailability LIMIT 10;")
+
+
+def isAvailable(stintid,studentid):
+    cur.execute(sql.SQL("select * from storm_studentavailability where student_id=%s;"),[studentid])
+    print(cur.fetchall())
+
+isAvailable(1,2)
+
+############################
+
+
+
 # Getting stint times
 
-cur.execute("select * from storm_stint LIMIT 1;")
+'''cur.execute("select * from storm_stint LIMIT 1;")
 stints = cur.fetchall()
-
+ 
 stinttimes = []
 
 for stint in stints:
@@ -48,3 +64,4 @@ print(studenttimes[0])
 
 # Instead of manually creating categories, it may be worth seeing whether there are correlations 
 # between ratings in certain areas across students that allow us to group them more effectively.
+'''
