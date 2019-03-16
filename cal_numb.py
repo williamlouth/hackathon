@@ -55,6 +55,18 @@ for j in range(18):
                         new_average = 0
                     cur.execute(sql.SQL("update storm_student set {}=%s where baseuser_ptr_id=%s;").format(sql.Identifier(key_average_test[0])),[new_average,int(b[0])])
 
+# Setting total scores fields to 0
+
+cur.execute(sql.SQL("update storm_student set {}=0;").format(sql.Identifier("total_score")))
+cur.execute(sql.SQL("update storm_student set {}=0.0;").format(sql.Identifier("total_number")))
+cur.execute(sql.SQL("update storm_student set {}=0.0;").format(sql.Identifier("total_average")))
+cur.execute("commit;")
+
+# Adding total scores data
+
+# ...
+
+
 cur.execute("commit;")
 
 cur.execute("select column_name from information_schema.columns where table_name = 'storm_student';")
