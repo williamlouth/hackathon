@@ -6,7 +6,7 @@ import psycopg2 as py
 import login
 import will
 
-matrix = np.zeros((10,10))
+matrix = np.zeros((10,100))
 
 conn =  login.conn
 cur = conn.cursor()
@@ -46,12 +46,16 @@ for i in range(len(stint_list)):
         #print(b[j][0])
         #print(stint_list[i])
         if isinstance(stint_list[i][0],str):
-            average = b[j][int(stint_list[i][0])*3+1]
+            average = b[j][int(stint_list[i][0])*3+3]
         else:
             average = 0
         if average != 0:
             print(average)
-        #matrix[i][j] =  average/5.0
+        matrix[i][j] =  average/5.0
+print(matrix)
+
+np.savetxt("matrix.txt" ,matrix,delimiter=",")
+
 # --
 
 
@@ -59,6 +63,7 @@ for i in range(len(stint_list)):
 #cur.execute("select storm_stint.student_id,type,grade from storm_stint inner join storm_review on storm_stint.id = storm_review.stint_id;")
 #cur.execute("select * from storm_student LIMIT 1;")
 #print(cur.fetchall())
+
 
 
 
