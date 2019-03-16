@@ -1,7 +1,8 @@
 import pandas as pd
 import psycopg2 as py
+import login
 
-conn = py.connect("dbname=hackathon user=postgres password=pw")
+conn = login.conn
 cur = conn.cursor()
 cur.execute("SELECT student_id, grade FROM storm_review;")
 a = cur.fetchall()
