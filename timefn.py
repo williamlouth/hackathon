@@ -7,7 +7,6 @@ import login
 import datetime
 import mergetime
 
-
 conn = login.conn
 cur = conn.cursor()
 

@@ -5,6 +5,7 @@ import pandas as pd
 import psycopg2 as py
 import login
 import will
+import timefn
 
 people = 100
 matrix = np.zeros((people,10))
@@ -54,7 +55,7 @@ for i in range(len(stint_list)):
         if average != 0:
             #print(average)
             pass
-        if timefn.isAvailable(stint_id,student_id):
+        if timefn.isAvailable(stint_list[i][1],student_id):
             matrix[j][i] =  average
         else:
             matrix[j][i] =  np.nan
