@@ -21,11 +21,16 @@ print(stinttimes[0])
 # Getting times when students available
 
 cur.execute("select * from storm_studentavailability LIMIT 1;")
-studentav = cur.fetchall()
-print(studentav)
+studentavs = cur.fetchall()
 
-cur.execute("select column_name from information_schema.columns where table_name = 'storm_studentavailability';")
-print(cur.fetchall())
+studenttimes = []
+
+for av in studentavs:
+    ii = [av[0]] + [av[6]] + [av[7]]
+    studenttimes.append(ii)
+
+print(studenttimes[0])
+
 
 # --
 
