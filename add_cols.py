@@ -16,31 +16,31 @@ for i in b:
     number = i[0] + '_number'
     average = i[0] + '_average'
 
-    cur.execute("alter table storm_student add %s float;" % tot)
-    cur.execute("alter table storm_student add %s int;" % number)
-    cur.execute("alter table storm_student add %s float;" % average)
+    #cur.execute("alter table storm_student add %s float;" % tot)
+    #cur.execute("alter table storm_student add %s int;" % number)
+    #cur.execute("alter table storm_student add %s float;" % average)
     #cur.execute("alter table storm_student drop %s ;" % tot)
     #cur.execute("alter table storm_student drop %s ;" % average)
     #cur.execute("alter table storm_student drop %s ;" % number)
 
     print(tot)
     
-cur.execute("alter table storm_stint add type_group Text;")
+#cur.execute("alter table storm_stint add type_group Text;")
 #cur.execute("alter table storm_stint drop type_group ;")
 
-cur.execute("alter table storm_student add total_score float;")
-cur.execute("alter table storm_student add total_number int;")
-cur.execute("alter table storm_student add total_average float;")
+#cur.execute("alter table storm_student add total_score float;")
+#cur.execute("alter table storm_student add total_number int;")
+#cur.execute("alter table storm_student add total_average float;")
 #cur.execute("alter table storm_student drop total_average ;")
 #cur.execute("alter table storm_student drop total_score ;")
 #cur.execute("alter table storm_student drop total_number ;")
 
 
-cur.execute("alter table storm_business add past_1 int;" )
-cur.execute("alter table storm_business add past_2 int;" )
-cur.execute("alter table storm_business add past_3 int;" )
-cur.execute("alter table storm_business add past_4 int;" )
-cur.execute("alter table storm_business add past_5 int;" )
+#cur.execute("alter table storm_business add past_1 int;" )
+#cur.execute("alter table storm_business add past_2 int;" )
+#cur.execute("alter table storm_business add past_3 int;" )
+#cur.execute("alter table storm_business add past_4 int;" )
+#cur.execute("alter table storm_business add past_5 int;" )
 #cur.execute("alter table storm_business drop past_1 ;")
 #cur.execute("alter table storm_business drop past_2 ;")
 #cur.execute("alter table storm_business drop past_3 ;")
