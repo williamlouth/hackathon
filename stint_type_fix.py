@@ -21,7 +21,7 @@ for i in range(0,17):
     for j in range(0,17):
         if isinstance(c_vals[i][j],str):
             #print(c_vals[i][j])
-            cur.execute(sql.SQL("update storm_stint set type_group=%s where type = %s;"),[keywords_vals[i],str(c_vals[i][j])])
+            cur.execute(sql.SQL("update storm_stint set type_group=%s where type = %s;"),[i,str(c_vals[i][j])])
 
 cur.execute("commit;")
 
