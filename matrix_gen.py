@@ -42,12 +42,10 @@ for i in a:
 # Getting a 'universal' student score - simple for now
 
 #print(stint_list)
-
 for i in range(len(stint_list)):
     #print(i)
     for j in range(len(b)):
         #print(b[j][0])
-        #print(stint_list[i])
         if isinstance(stint_list[i][0],str):
             average = b[j][int(stint_list[i][0])*3+3]
         else:
@@ -73,7 +71,10 @@ for i in matches:
 #print(list_of_pairs)
 #print(stint_list)
 print(matches)
-
+print(len(stint_list))
+print(stint_list)
+for i in range(10):
+    print(isinstance(stint_list[i][0],str))
 
 
 
