@@ -66,4 +66,4 @@ def isAvailable(stintid,studentid):
             return True
     return False
 
-isAvailable(1,6)
+print(isAvailable(1,6))
