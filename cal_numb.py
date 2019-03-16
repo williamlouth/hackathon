@@ -14,8 +14,6 @@ c = pd.read_excel('possible_entries.xlsx')
 keywords = pd.read_excel('keywords.xlsx')
 keywords_vals = keywords.values
 
-
-
 a = pd.read_sql("select storm_stint.student_id,type,grade from storm_stint inner join storm_review on storm_stint.id = storm_review.stint_id;",conn)
 nump = c.values
 for j in range(18):
