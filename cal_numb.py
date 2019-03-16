@@ -3,8 +3,9 @@ from psycopg2 import sql
 import math
 import pandas as pd
 import psycopg2 as py
+import login
 
-conn = py.connect("dbname=hackathon user=postgres password=pw")
+conn = login.conn
 
 cur = conn.cursor()
 #cur.execute("select storm_stint.student_id,type,grade from storm_stint inner join storm_review on storm_stint.id = storm_review.stint_id;")
@@ -14,10 +15,8 @@ c = pd.read_excel('possible_entries.xlsx')
 keywords = pd.read_excel('keywords.xlsx')
 keywords_vals = keywords.values
 
-
 cur.execute("update storm_student set wait_number=0;" )
 cur.execute("commit;")
-
 
 #print(c.values[0][2])
 a = pd.read_sql("select storm_stint.student_id,type,grade from storm_stint inner join storm_review on storm_stint.id = storm_review.stint_id;",conn)
