@@ -9,13 +9,15 @@ conn = login.conn
 cur = conn.cursor()
 
 cur.execute("select * from storm_studentavailability LIMIT 10;")
+print(cur.fetchall())
+
 
 
 def isAvailable(stintid,studentid):
     cur.execute(sql.SQL("select * from storm_studentavailability where student_id=%s;"),[studentid])
     print(cur.fetchall())
 
-isAvailable(1,2)
+isAvailable(1,3)
 
 ############################
 
