@@ -52,10 +52,10 @@ for i in range(len(stint_list)):
         if average != 0:
             print(average)
         matrix[i][j] =  average/5.0
-print(matrix)
 
 np.savetxt("matrix.txt" ,matrix,delimiter=",")
-
+list_of_pairs = will.iter_loop(matrix)
+print(list_of_pairs)
 # --
 
 
