@@ -2,7 +2,7 @@ import numpy as np
 import time
 
 
-M = np.random.rand(6, 7)
+M = np.random.rand(500, 7)
 limit = min(len(M[0]), len(M[1]))
 #print(M)
 
@@ -41,10 +41,10 @@ def delete_pairs(A):    # turns student row into nans if assigned to a job
         row = one_entry_row(A)
         if col is not None:    # checking if there is a column with only 1 student available
             row = np.where(A[:,col] == np.nanmax(A[:,col]))[0][0]   # finding the last available student
-            #print([row, col])
+            print([row, col])
             pairs.append([row, col])        # appending the match to the list
             A[row] *= np.nan    # setting student to unavailable for other jobs
-        elif options_left(A)[0] == options_left(A)[1] and row is not None:
+        elif options_left(A)[0] <= options_left(A)[1] and row is not None:
             col = np.where(A[row] == np.nanmax(A[row]))[0][0]
             pairs.append([row, col])
             A[:,col] *= np.nan
@@ -55,16 +55,24 @@ def delete_pairs(A):    # turns student row into nans if assigned to a job
 def iterate(A):     # implementing the process
     return delete_pairs(delete_smallest(A))
 
-def iter_loop(M, print_it=False):
+
+def print_if(text, print_it):
+    if print_it:
+        print(text)
+
+def iter_loop(A, print_it=True):
     st = time.time()
     while True:
-        M = iterate(M)
-        #print(M,'\n\n')
-        if len(pairs) == limit:
+        A = iterate(A)
+        #print(A,'\n\n')
+        if len(pairs) == limit or len(A[~np.isnan(A)]) == 0:
             break
     #print(pairs)
     #print(len(pairs))
     end = time.time()
     #print(end - st)
+    return pairs
+
+iter_loop(M)
 
 

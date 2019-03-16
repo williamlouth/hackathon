@@ -6,7 +6,7 @@ conn = login.conn
 
 cur = conn.cursor()
 
-a = pd.read_excel('keywords.xlsx')
+a = pd.read_excel('txt/keywords.xlsx')
 b=a.values
 print(b)
 

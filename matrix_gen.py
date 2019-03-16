@@ -32,7 +32,7 @@ print(cur.fetchall())
 b = []
 
 for i in a:
-    ii = [i[0]] + list(i[4:])
+    ii = [i[0]] + list(i[5:])
     b.append(ii)
 
 
