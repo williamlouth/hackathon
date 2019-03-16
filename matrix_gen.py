@@ -54,7 +54,12 @@ for i in range(len(stint_list)):
         if average != 0:
             #print(average)
             pass
-        matrix[j][i] =  average/5.0
+        if timefn.isAvailable(stint_id,student_id):
+            matrix[j][i] =  average
+        else:
+            matrix[j][i] =  np.nan
+
+
 
 np.savetxt("matrix.txt" ,matrix,delimiter=",")
 print(matrix.shape)
