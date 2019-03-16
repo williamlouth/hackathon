@@ -16,9 +16,9 @@ for i in b:
     number = i[0] + '_number'
     average = i[0] + '_average'
 
-    cur.execute("alter table storm_student add %s float;" % tot)
-    cur.execute("alter table storm_student add %s int;" % number)
-    cur.execute("alter table storm_student add %s float;" % average)
+    #cur.execute("alter table storm_student add %s float;" % tot)
+    #cur.execute("alter table storm_student add %s int;" % number)
+    #cur.execute("alter table storm_student add %s float;" % average)
     #cur.execute("alter table storm_student drop %s ;" % tot)
     #cur.execute("alter table storm_student drop %s ;" % average)
     #cur.execute("alter table storm_student drop %s ;" % number)
@@ -28,9 +28,9 @@ for i in b:
 cur.execute("alter table storm_student add total_score float;")
 cur.execute("alter table storm_student add total_number int;")
 cur.execute("alter table storm_student add total_average float;")
-cur.execute("alter table storm_student drop total_average ;")
-cur.execute("alter table storm_student drop total_score ;")
-cur.execute("alter table storm_student drop total_number ;")
+#cur.execute("alter table storm_student drop total_average ;")
+#cur.execute("alter table storm_student drop total_score ;")
+#cur.execute("alter table storm_student drop total_number ;")
 
 
 #cur.execute("alter table storm_business add past_1 int;" )
