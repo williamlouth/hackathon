@@ -65,16 +65,15 @@ for i in list_of_pairs:
 
 for i in matches:
     cur.execute(sql.SQL("select ref from storm_stint where id = %s;").format(),[i[0]])
-    print(cur.fetchall())
     cur.execute(sql.SQL("select ref from storm_baseuser where id = %s;").format(),[i[1]])
-    print(cur.fetchall())
+print(len(matches))
 #print(list_of_pairs)
 #print(stint_list)
-print(matches)
-print(len(stint_list))
-print(stint_list)
-for i in range(10):
-    print(isinstance(stint_list[i][0],str))
+#print(matches)
+#print(len(stint_list))
+#print(stint_list)
+#for i in range(10):
+#    print(isinstance(stint_list[i][0],str))
 
 
 

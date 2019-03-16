@@ -63,6 +63,7 @@ def print_if(text, print_it):
 
 def iter_loop(A, print_it=True):
     st = time.time()
+    limit = min(len(A[0]), len(A[1]))
     while True:
         A = iterate(A)
         #print(A,'\n\n')
