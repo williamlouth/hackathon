@@ -7,18 +7,32 @@ import login
 import will
 
 matrix = np.zeros((10,10))
+
 conn =  login.conn
 cur = conn.cursor()
-#cur.execute("select storm_stint.student_id,type,grade from storm_stint inner join storm_review on storm_stint.id = storm_review.stint_id;")
-#cur.execute("select * from storm_student LIMIT 1;")
-#print(cur.fetchall())
 
+# Getting stints
 
 cur.execute("select type,id from storm_stint")
 stint_list = cur.fetchall()
 print(stint_list)
 
+# Getting students
 
+cur.execute("SELECT * FROM storm_student LIMIT 10;")
+a = cur.fetchall()
+
+print(a)
+
+# Getting a 'universal' student score - simple for now
+
+# --
+
+
+
+#cur.execute("select storm_stint.student_id,type,grade from storm_stint inner join storm_review on storm_stint.id = storm_review.stint_id;")
+#cur.execute("select * from storm_student LIMIT 1;")
+#print(cur.fetchall())
 
 
 
