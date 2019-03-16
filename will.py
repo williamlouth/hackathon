@@ -2,7 +2,7 @@ import numpy as np
 import time
 
 
-M = np.random.rand(140, 9)
+M = np.random.rand(6, 7)
 limit = min(len(M[0]), len(M[1]))
 #print(M)
 
@@ -55,15 +55,16 @@ def delete_pairs(A):    # turns student row into nans if assigned to a job
 def iterate(A):     # implementing the process
     return delete_pairs(delete_smallest(A))
 
-st = time.time()
-while True:
-    M = iterate(M)
-    print(M,'\n\n')
-    if len(pairs) == limit:
-        break
-print(pairs)
-print(len(pairs))
-end = time.time()
-print(end - st)
+def iter_loop(A, print_it=False)
+    st = time.time()
+    while True:
+        M = iterate(M)
+        #print(M,'\n\n')
+        if len(pairs) == limit:
+            break
+    #print(pairs)
+    #print(len(pairs))
+    end = time.time()
+    #print(end - st)
 
 
