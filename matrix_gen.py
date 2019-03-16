@@ -65,9 +65,15 @@ for i in list_of_pairs:
     #print(stint_list[i[1]][1])
     #print(b[i[0]][0])
 
-print(matches)
+for i in matches:
+    cur.execute(sql.SQL("select ref from storm_stint where id = %s;").format(),[i[0]])
+    print(cur.fetchall())
+    cur.execute(sql.SQL("select ref from storm_baseuser where id = %s;").format(),[i[1]])
+    print(cur.fetchall())
 #print(list_of_pairs)
 #print(stint_list)
+print(matches)
+
 
 
 
