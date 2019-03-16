@@ -9,7 +9,7 @@ cur = conn.cursor()
 
 cur.execute("select * from storm_stint LIMIT 1;")
 stints = cur.fetchall()
-
+ 
 stinttimes = []
 
 for stint in stints:
