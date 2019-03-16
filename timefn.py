@@ -65,5 +65,6 @@ def isAvailable(stintid,studentid):
         if time[0] < stinttimes[0] and time[1] > stinttimes[1]:
             return True
     return False
+    
 
 #print(isAvailable(1,6))
