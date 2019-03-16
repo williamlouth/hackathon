@@ -4,6 +4,7 @@ import math
 import pandas as pd
 import psycopg2 as py
 import stats
+import timefn
 import login
 
 conn =  login.conn
@@ -29,7 +30,7 @@ def distribution_maker(bus_id):
         #print(len(distribution))
         return distribution
 
-a = pd.read_sql("select storm_stint.student_id,type,grade from storm_stint inner join storm_review on storm_stint.id = storm_review.stint_id;",conn)
+a = pd.read_sql("select storm_stint.student_id,type,grade,storm_review.business_id from storm_stint inner join storm_review on storm_stint.id = storm_review.stint_id;",conn)
 nump = c.values
 for j in range(18):
     print(j)
@@ -62,9 +63,10 @@ for j in range(18):
                     c = cur.fetchall()
                     new_total = float(c[0][0])
 
-                    cur.execute(sql.SQL("select business_id from storm_stint where id=%s;").format(),[int(b[0])])
+                    cur.execute(sql.SQL("select business_id from storm_stint where id=%s;").format(),[int(b[3])])
                     bus_id = cur.fetchall()[0][0]
-                    new_total+=stats.normalize(distribution_maker(bus_id),int(b[2]))
+                    distr = distribution_maker(bus_id)
+                    new_total+=stats.normalize(distr,int(b[2]))
                     cur.execute(sql.SQL("update storm_student set {}=%s where baseuser_ptr_id=%s;").format(sql.Identifier(key_total_test[0])),[new_total,int(b[0])])
 
                     if new_number != 0:

@@ -51,12 +51,12 @@ def isAvailable(stintid,studentid):
         studenttimes.append(ii)
     
 
-    print("Stint Time")
-    print(stinttimes)
-    print("Student Times")
-    print(studenttimes)
-    print("Student Times 2")
-    print(Sort(studenttimes))
+    #print("Stint Time")
+    #print(stinttimes)
+    #print("Student Times")
+    #print(studenttimes)
+    #print("Student Times 2")
+    #print(Sort(studenttimes))
 
     sorted_studenttimes = mergetime.merge_times(Sort(studenttimes))
 
@@ -67,4 +67,4 @@ def isAvailable(stintid,studentid):
             return True
     return False
 
-print(isAvailable(1,6))
+#print(isAvailable(1,6))
