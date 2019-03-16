@@ -37,7 +37,9 @@ for i in a:
 
 
 print(b)
+
 # Getting a 'universal' student score - simple for now
+
 print(stint_list)
 
 for i in range(len(stint_list)):
