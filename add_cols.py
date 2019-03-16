@@ -25,7 +25,7 @@ for i in b:
 
     print(tot)
     
-cur.execute("alter table storm_stint add type_group Text;")
+#cur.execute("alter table storm_stint add type_group Text;")
 #cur.execute("alter table storm_stint drop type_group ;")
 
 #cur.execute("alter table storm_student add total_score float;")
