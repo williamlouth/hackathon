@@ -24,8 +24,6 @@ for i in rvw_tuple:
 
 	reviews.append(list(i))
 
-print(reviews)
-
 # Calculating total_score, total_number and total_mean scores
 
 scores = []
