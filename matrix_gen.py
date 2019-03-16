@@ -6,14 +6,15 @@ import psycopg2 as py
 import login
 import will
 
-matrix = np.zeros((10,10))
+people = 1000
+matrix = np.zeros((10,people))
 
 conn =  login.conn
 cur = conn.cursor()
 
 # Getting stints
 
-cur.execute("select type,id from storm_stint")
+cur.execute("select type_group,id from storm_stint limit 10 offset 10")
 stint_list = cur.fetchall()
 #print(stint_list)
 
@@ -21,13 +22,13 @@ stint_list = cur.fetchall()
 
 # Getting students
 
-cur.execute("SELECT * FROM storm_student LIMIT 10;")
+cur.execute("SELECT * FROM storm_student LIMIT 1000;")
 a = cur.fetchall()
 
 #print(a)
 
 cur.execute("select column_name from information_schema.columns where table_name = 'storm_student';")
-print(cur.fetchall())
+#print(cur.fetchall())
 
 b = []
 
@@ -36,8 +37,45 @@ for i in a:
     b.append(ii)
 
 
-print(b)
+#print(b)
+
 # Getting a 'universal' student score - simple for now
+
+#print(stint_list)
+for i in range(len(stint_list)):
+    #print(i)
+    for j in range(len(b)):
+        #print(b[j][0])
+        if isinstance(stint_list[i][0],str):
+            average = b[j][int(stint_list[i][0])*3+3]
+        else:
+            average = 0
+        if average != 0:
+            #print(average)
+            pass
+        matrix[i][j] =  average/5.0
+
+np.savetxt("matrix.txt" ,matrix,delimiter=",")
+list_of_pairs = will.iter_loop(matrix)
+matches = []
+for i in list_of_pairs:
+    matches.append([stint_list[i[1]][1],b[i[0]][0]])
+    #print(stint_list[i[1]][1])
+    #print(b[i[0]][0])
+
+for i in matches:
+    cur.execute(sql.SQL("select ref from storm_stint where id = %s;").format(),[i[0]])
+    cur.execute(sql.SQL("select ref from storm_baseuser where id = %s;").format(),[i[1]])
+print(len(matches))
+#print(list_of_pairs)
+#print(stint_list)
+#print(matches)
+#print(len(stint_list))
+#print(stint_list)
+#for i in range(10):
+#    print(isinstance(stint_list[i][0],str))
+
+
 
 # --
 
@@ -46,6 +84,7 @@ print(b)
 #cur.execute("select storm_stint.student_id,type,grade from storm_stint inner join storm_review on storm_stint.id = storm_review.stint_id;")
 #cur.execute("select * from storm_student LIMIT 1;")
 #print(cur.fetchall())
+
 
 
 

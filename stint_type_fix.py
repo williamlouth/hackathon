@@ -10,8 +10,8 @@ cur = conn.cursor()
 #cur.execute("select storm_stint.student_id,type,grade from storm_stint inner join storm_review on storm_stint.id = storm_review.stint_id;")
 #cur.execute("select * from storm_student LIMIT 1;")
 #print(cur.fetchall())
-c = pd.read_excel('possible_entries.xlsx')
-keywords = pd.read_excel('keywords.xlsx')
+c = pd.read_excel('txt/possible_entries.xlsx')
+keywords = pd.read_excel('txt/keywords.xlsx')
 keywords_vals = keywords.values
 c_vals = c.values
 print(keywords_vals)
