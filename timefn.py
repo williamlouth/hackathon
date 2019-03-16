@@ -5,6 +5,7 @@ import pandas as pd
 import psycopg2 as py
 import login
 import datetime
+import mergetime
 
 
 conn = login.conn
@@ -15,6 +16,14 @@ cur = conn.cursor()
 
 #cur.execute("select * from storm_studentavailability LIMIT 1;")
 #print(cur.fetchall())
+
+def Sort(sub_list): 
+  
+    # reverse = None (Sorts in Ascending order) 
+    # key is set to sort using second element of  
+    # sublist lambda has been used 
+    sub_list.sort(key = lambda x: x[1]) 
+    return sub_list
 
 def toSeconds(t):
     return (t-datetime.datetime(1970,1,1)).total_seconds() 
@@ -27,10 +36,10 @@ def isAvailable(stintid,studentid):
     stinttimes = []
 
     for stinttime in stintdata:
-        ii = [stinttime[0]] + [toSeconds(stinttime[3].replace(tzinfo=None))] + [toSeconds(stinttime[5].replace(tzinfo=None))]
+        ii = [toSeconds(stinttime[3].replace(tzinfo=None))] + [toSeconds(stinttime[5].replace(tzinfo=None))]
         stinttimes.append(ii)
 
-    
+    stinttimes = stinttimes[0]
 
     cur.execute(sql.SQL("select * from storm_studentavailability where student_id=%s;"),[studentid])
     studentdata = cur.fetchall()
@@ -38,65 +47,24 @@ def isAvailable(stintid,studentid):
     studenttimes = []
 
     for av in studentdata:
-        ii = [av[0]] + [toSeconds(av[6].replace(tzinfo=None))] + [toSeconds(av[7].replace(tzinfo=None))]
+        ii = [toSeconds(av[6].replace(tzinfo=None))] + [toSeconds(av[7].replace(tzinfo=None))]
         studenttimes.append(ii)
+    
 
-    print("Stint Time ")
+    print("Stint Time")
     print(stinttimes)
-    print("Student Times ")
+    print("Student Times")
     print(studenttimes)
+    print("Student Times 2")
+    print(Sort(studenttimes))
 
+    sorted_studenttimes = mergetime.merge_times(Sort(studenttimes))
 
+    # Testing if stint time is included in one of the student times
 
+    for time in sorted_studenttimes:
+        if time[0] < stinttimes[0] and time[1] > stinttimes[1]:
+            return True
+    return False
 
-
-isAvailable(1,6)
-
-############################
-
-
-
-# Getting stint times
-
-'''cur.execute("select * from storm_stint LIMIT 1;")
-stints = cur.fetchall()
- 
-stinttimes = []
-
-for stint in stints:
-    ii = [stint[0]] + [stint[3]] + [stint[5]]
-    stinttimes.append(ii)
-
-print(stinttimes[0])
-
-# Getting times when students available
-
-cur.execute("select * from storm_studentavailability LIMIT 1;")
-studentavs = cur.fetchall()
-
-studenttimes = []
-
-for av in studentavs:
-    ii = [av[0]] + [av[6]] + [av[7]]
-    studenttimes.append(ii)
-
-print(studenttimes[0])
-
-
-# --
-
-#print(cur.execute("select column_name from information_schema.columns where table_name = 'storm_business';"))
-#print(cur.execute("copy storm_stint to 'stint.csv' delimeter ',' csv header;"))
-#print(cur.fetchall())
-
-#a = pd.read_sql('select * from storm_student',conn)
-#a.to_pickle('student.txt')
-#print(a)
-
-#cur.execute("select * from storm_student LIMIT 100;")
-#print(cur.fetchall())
-
-
-# Instead of manually creating categories, it may be worth seeing whether there are correlations 
-# between ratings in certain areas across students that allow us to group them more effectively.
-'''
+print(isAvailable(1,6))
