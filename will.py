@@ -55,7 +55,7 @@ def delete_pairs(A):    # turns student row into nans if assigned to a job
 def iterate(A):     # implementing the process
     return delete_pairs(delete_smallest(A))
 
-def iter_loop(A, print_it=False)
+def iter_loop(A, print_it=False):
     st = time.time()
     while True:
         M = iterate(M)
