@@ -25,9 +25,12 @@ for i in b:
 
     print(tot)
     
-cur.execute("alter table storm_student add total_score float;")
-cur.execute("alter table storm_student add total_number int;")
-cur.execute("alter table storm_student add total_average float;")
+#cur.execute("alter table storm_stint add type_group Text;")
+#cur.execute("alter table storm_stint drop type_group ;")
+
+#cur.execute("alter table storm_student add total_score float;")
+#cur.execute("alter table storm_student add total_number int;")
+#cur.execute("alter table storm_student add total_average float;")
 #cur.execute("alter table storm_student drop total_average ;")
 #cur.execute("alter table storm_student drop total_score ;")
 #cur.execute("alter table storm_student drop total_number ;")
