@@ -61,37 +61,12 @@ for j in range(18):
                     else:
                         new_average = 0
                     cur.execute(sql.SQL("update storm_student set {}=%s where baseuser_ptr_id=%s;").format(sql.Identifier(key_average_test[0])),[new_average,int(b[0])])
-#for i in range(a.shd+=1                                                                                                                                  ape[0]):
-#    b = a.loc[i].vacur.execute(sql.SQL("update storm_student set {}=%s where baseuser_ptr_id=%s;").format(sql.Identifier(key_num_test[0])),[d,int(b[0])])lues
-#    if b[1] == "Bar Back":
-#        cur.execute("select bar_number from storm_student where baseuser_ptr_id=%s;",[int(b[0])])
-#        #cur.execute("select bar_number from storm_student where baseuser_ptr_id =%s;" , int(b[0]))
-#        c = cur.fetchall()
-#        d = int(c[0][0])
-#        d+=1
-#        cur.execute("update storm_student set bar_number=%s where baseuser_ptr_id=%s;" , (d,int(b[0])) )
-#        #cur.execute("update storm_student set bar_number=%s where baseuser_ptr_id = %s;" %(b[1],b[0]))
-#
-#
-#    #print(b)
-#
-#cur.execute("update storm_student set bar_number=100;" )
+
 cur.execute("commit;")
 
 cur.execute("select column_name from information_schema.columns where table_name = 'storm_student';")
 #print(cur.fetchall())
 #print(cur.fetchall())
-
-cur.execute("select bar_number,baseuser_ptr_id from storm_student where bar_number != 0;")
-#print(cur.fetchall())
-
-
-
-
-
-
-
-
 
 
 

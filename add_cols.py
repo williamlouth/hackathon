@@ -9,16 +9,6 @@ cur = conn.cursor()
 a = pd.read_excel('keywords.xlsx')
 b=a.values
 print(b)
-#c = pd.read_excel('possible_entries.xlsx')
-#print(c)
-#empty_list = []
-#for  i in range(c.shape[0]):
-#    empty_list.append(c.iloc[i].values)
-# 
-#print(empty_list)
-#for i in empty_list:
-#    print(i)
-#    print("hi")
 
 for i in b:
     print(i[0])
