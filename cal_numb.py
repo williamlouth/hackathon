@@ -15,7 +15,6 @@ c = pd.read_excel('txt/possible_entries.xlsx')
 keywords = pd.read_excel('txt/keywords.xlsx')
 keywords_vals = keywords.values
 
-
 def distribution_maker(bus_id):
     cur.execute(sql.SQL("select past_5, past_4,past_3,past_2,past_1 from  storm_business where id = %s;"),[int(bus_id)])
     distribution = cur.fetchall()[0]
@@ -79,8 +78,7 @@ cur.execute("commit;")
 cur.execute("select * from storm_student LIMIT 1;")
 print(cur.fetchall())
 cur.execute("select column_name from information_schema.columns where table_name = 'storm_student';")
-#print(cur.fetchall())
-#print(cur.fetchall())
+
 
 
 
