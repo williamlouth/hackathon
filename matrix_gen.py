@@ -15,15 +15,28 @@ cur = conn.cursor()
 
 cur.execute("select type,id from storm_stint")
 stint_list = cur.fetchall()
-print(stint_list)
+#print(stint_list)
+
+# Will look like [(stint_type_index, stint_id)]
 
 # Getting students
 
 cur.execute("SELECT * FROM storm_student LIMIT 10;")
 a = cur.fetchall()
 
-print(a)
+#print(a)
 
+cur.execute("select column_name from information_schema.columns where table_name = 'storm_student';")
+print(cur.fetchall())
+
+b = []
+
+for i in a:
+    ii = [i[0]] + list(i[4:])
+    b.append(ii)
+
+
+print(b)
 # Getting a 'universal' student score - simple for now
 
 # --
