@@ -58,6 +58,8 @@ for i in range(len(stint_list)):
 np.savetxt("matrix.txt" ,matrix,delimiter=",")
 list_of_pairs = will.iter_loop(matrix)
 print(list_of_pairs)
+
+
 # --
 
 
