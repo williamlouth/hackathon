@@ -11,11 +11,11 @@ matrix = np.zeros((10,10))
 conn =  login.conn
 cur = conn.cursor()
 
-# Getting stints 
+# Getting stints
 
 cur.execute("select type,id from storm_stint")
 stint_list = cur.fetchall()
-#print(stint_list)
+print(stint_list)
 
 # Getting students
 
