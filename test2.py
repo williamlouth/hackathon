@@ -1,6 +1,4 @@
 import pandas as pd
-<<<<<<< HEAD
-=======
 import psycopg2 as py
 import login
 
@@ -28,4 +26,3 @@ cur.execute("select * from storm_student LIMIT 1;")
 
 # Instead of manually creating categories, it may be worth seeing whether there are correlations 
 # between ratings in certain areas across students that allow us to group them more effectively.
->>>>>>> 2de5f679a85f5321ed9d8529dfb5d5082c92d633
