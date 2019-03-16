@@ -64,7 +64,7 @@ cur.execute("commit;")
 
 # Adding total scores data
 
-# ...
+# cur.execute(sql.SQL("update storm_student set {}=%s where baseuser_ptr_id=%s;").format(sql.Identifier(key_total_test[0])),[new_total,int(b[0])])
 
 
 cur.execute("commit;")
