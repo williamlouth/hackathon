@@ -52,6 +52,8 @@ def iterate(A):     # implementing the process
 
 
 def iter_loop(A):
+    if len(A[~np.isnan(A)]) == 0:
+        return []
     limit = min(len(A[0]), len(A[1]))
     while True:
         A = iterate(A)
