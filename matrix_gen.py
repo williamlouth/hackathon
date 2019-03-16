@@ -15,13 +15,13 @@ cur = conn.cursor()
 
 cur.execute("select type,id from storm_stint")
 stint_list = cur.fetchall()
-#print(stint_list)
+print(stint_list)
 
 # Will look like [(stint_type_index, stint_id)]
 
 # Getting students
 
-cur.execute("SELECT * FROM storm_student LIMIT 10;")
+cur.execute("SELECT * FROM storm_student LIMIT 100;")
 a = cur.fetchall()
 
 #print(a)
