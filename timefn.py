@@ -5,7 +5,7 @@ import pandas as pd
 import psycopg2 as py
 import login
 import datetime
-
+import mergetime
 
 conn = login.conn
 cur = conn.cursor()
@@ -50,14 +50,14 @@ def isAvailable(stintid,studentid):
         studenttimes.append(ii)
     
 
-    print("Stint Time")
-    print(stinttimes)
-    print("Student Times")
-    print(studenttimes)
-    print("Student Times 2")
-    print(Sort(studenttimes))
+    #print("Stint Time")
+    #print(stinttimes)
+    #print("Student Times")
+    #print(studenttimes)
+    #print("Student Times 2")
+    #print(Sort(studenttimes))
 
-    sorted_studenttimes = Sort(studenttimes)
+    sorted_studenttimes = mergetime.merge_times(Sort(studenttimes))
 
     # Testing if stint time is included in one of the student times
 
@@ -65,5 +65,6 @@ def isAvailable(stintid,studentid):
         if time[0] < stinttimes[0] and time[1] > stinttimes[1]:
             return True
     return False
+    
 
-print(isAvailable(1,6))
+#print(isAvailable(1,6))

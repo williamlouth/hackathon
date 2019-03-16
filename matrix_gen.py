@@ -5,6 +5,7 @@ import pandas as pd
 import psycopg2 as py
 import login
 import will
+import timefn
 
 people = 100
 matrix = np.zeros((people,10))
@@ -54,10 +55,17 @@ for i in range(len(stint_list)):
         if average != 0:
             #print(average)
             pass
-        matrix[j][i] =  average/5.0
+        print(b[j][0])
+        if timefn.isAvailable(stint_list[i][1],b[j][0]):
+            matrix[j][i] =  average
+        else:
+            matrix[j][i] =  np.nan
+
+
 
 np.savetxt("matrix.txt" ,matrix,delimiter=",")
 print(matrix.shape)
+print(matrix)
 list_of_pairs = will.iter_loop(matrix)
 matches = []
 for i in list_of_pairs:
