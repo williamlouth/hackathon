@@ -49,7 +49,8 @@ for i in range(len(stint_list)):
             average = b[j][int(stint_list[i][0])*3+1]
         else:
             average = 0
-        print(average)
+        if average != 0:
+            print(average)
         #matrix[i][j] =  average/5.0
 # --
 
