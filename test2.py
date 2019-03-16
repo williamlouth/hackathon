@@ -22,7 +22,9 @@ print(cur.fetchall())
 #a.to_pickle('student.txt')
 #print(a)
 
-cur.execute("select * from storm_student LIMIT 1;")
+cur.execute("select * from storm_student LIMIT 100;")
+print(cur.fetchall())
+
 
 # Instead of manually creating categories, it may be worth seeing whether there are correlations 
 # between ratings in certain areas across students that allow us to group them more effectively.
