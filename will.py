@@ -1,19 +1,22 @@
 import numpy as np
 import time
 
-
-M = np.random.rand(500, 7)
+M1 = np.random.randint(10, size=(12, 8))
+M = np.random.rand(10, 1000)
+print(M)
 limit = min(len(M[0]), len(M[1]))
 #print(M)
 
 def delete_smallest(A):             # deletes the smallest entry in the matrix
     if len(A[~np.isnan(A)]) > 0:    # assuming that the matrix has at least non-nan entry
         i, j = np.where(A == np.nanmin(A))
+        #print(i, j)
         A[i[0]][j[0]] = np.nan
         return A
 
 
 def count_not_nans(arr):            # counts the number of non-nans in an array
+    #print(len(arr[~np.isnan(arr)]))
     return len(arr[~np.isnan(arr)])
 
 
@@ -38,6 +41,7 @@ pairs = []  # the list of matches
 def delete_pairs(A):    # turns student row into nans if assigned to a job
     while True:
         col = one_entry_column(A)   # checks if there is a column with one student left
+        #print(col)
         row = one_entry_row(A)
         if col is not None:    # checking if there is a column with only 1 student available
             row = np.where(A[:,col] == np.nanmax(A[:,col]))[0][0]   # finding the last available student
@@ -66,11 +70,11 @@ def iter_loop(A, print_it=True):
     limit = min(len(A[0]), len(A[1]))
     while True:
         A = iterate(A)
-        #print(A,'\n\n')
+        print(A,'\n\n')
         if len(pairs) == limit or len(A[~np.isnan(A)]) == 0:
             break
-    #print(pairs)
-    #print(len(pairs))
+    print(pairs)
+    print(len(pairs))
     end = time.time()
     #print(end - st)
     return pairs
