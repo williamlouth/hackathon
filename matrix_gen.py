@@ -13,7 +13,7 @@ cur = conn.cursor()
 
 # Getting stints
 
-cur.execute("select type_group,id from storm_stint limit 10")
+cur.execute("select type_group,id from storm_stint limit 10 offset 10")
 stint_list = cur.fetchall()
 #print(stint_list)
 
@@ -38,12 +38,17 @@ for i in a:
 
 print(b)
 # Getting a 'universal' student score - simple for now
+print(stint_list)
 
 for i in range(len(stint_list)):
-    print(i)
+    #print(i)
     for j in range(len(b)):
-        print(b[j])
-        average = b[j][(stint_list[i][0]*3)+1]
+        #print(b[j][0])
+        #print(stint_list[i])
+        if isinstance(stint_list[i][0],str):
+            average = b[j][int(stint_list[i][0])*3+1]
+        else:
+            average = 0
         print(average)
         #matrix[i][j] =  average/5.0
 # --
