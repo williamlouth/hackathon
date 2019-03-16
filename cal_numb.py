@@ -30,8 +30,8 @@ for j in range(18):
     key_average_test = keywords_vals[j] +'_average'
 
     cur.execute(sql.SQL("update storm_student set {}=0;").format(sql.Identifier(str(key_num_test[0]))))
-    cur.execute(sql.SQL("update storm_student set {}=0;").format(sql.Identifier(str(key_total_test[0]))))
-    cur.execute(sql.SQL("update storm_student set {}=0;").format(sql.Identifier(str(key_average_test[0]))))
+    cur.execute(sql.SQL("update storm_student set {}=0.0;").format(sql.Identifier(str(key_total_test[0]))))
+    cur.execute(sql.SQL("update storm_student set {}=0.0;").format(sql.Identifier(str(key_average_test[0]))))
     cur.execute("commit;")
 
     print(keywords_vals[j])
@@ -44,21 +44,25 @@ for j in range(18):
             for i in range(a.shape[0]):
                 b = a.loc[i].values
                 if b[1] == to_test:
-                    #cur.execute("select %s from storm_student where baseuser_ptr_id=%s;",(str(key_num_test[0]),int(b[0])))
                     cur.execute(sql.SQL("select {} from storm_student where baseuser_ptr_id=%s;").format(sql.Identifier(key_num_test[0])),[int(b[0])])
-                    #query = "select %s from storm_student where baseuser_ptr_id=%s;"
-                    #cur.execute(query,([key_num_test[0]],int(b[0])))
-                    #cur.execute("select bar_number from storm_student where baseuser_ptr_id =%s;" , int(b[0]))     c = cur.fetchall()
                     c = cur.fetchall()
-                    d = int(c[0][0])
-                    d+=1
-                    #cur.execute("update storm_student set %s=%s where baseuser_ptr_id=%s;" , (num_test,d,int(b[0])) )
-
-                    cur.execute(sql.SQL("update storm_student set {}=%s where baseuser_ptr_id=%s;").format(sql.Identifier(key_num_test[0])),[d,int(b[0])])
+                    new_number = int(c[0][0])
+                    new_number+=1
+                    cur.execute(sql.SQL("update storm_student set {}=%s where baseuser_ptr_id=%s;").format(sql.Identifier(key_num_test[0])),[new_number,int(b[0])])
                     
+                    cur.execute(sql.SQL("select {} from storm_student where baseuser_ptr_id=%s;").format(sql.Identifier(key_total_test[0])),[int(b[0])])
+                    c = cur.fetchall()
+                    new_total = float(c[0][0])
+                    new_total+=float(b[2])
+                    cur.execute(sql.SQL("update storm_student set {}=%s where baseuser_ptr_id=%s;").format(sql.Identifier(key_total_test[0])),[new_total,int(b[0])])
 
-#for i in range(a.shape[0]):
-#    b = a.loc[i].values
+                    if new_number != 0:
+                        new_average = new_total/float(new_number)
+                    else:
+                        new_average = 0
+                    cur.execute(sql.SQL("update storm_student set {}=%s where baseuser_ptr_id=%s;").format(sql.Identifier(key_average_test[0])),[new_average,int(b[0])])
+#for i in range(a.shd+=1                                                                                                                                  ape[0]):
+#    b = a.loc[i].vacur.execute(sql.SQL("update storm_student set {}=%s where baseuser_ptr_id=%s;").format(sql.Identifier(key_num_test[0])),[d,int(b[0])])lues
 #    if b[1] == "Bar Back":
 #        cur.execute("select bar_number from storm_student where baseuser_ptr_id=%s;",[int(b[0])])
 #        #cur.execute("select bar_number from storm_student where baseuser_ptr_id =%s;" , int(b[0]))
