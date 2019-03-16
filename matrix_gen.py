@@ -6,7 +6,8 @@ import psycopg2 as py
 import login
 import will
 
-matrix = np.zeros((10,100))
+people = 1000
+matrix = np.zeros((10,people))
 
 conn =  login.conn
 cur = conn.cursor()
@@ -15,19 +16,19 @@ cur = conn.cursor()
 
 cur.execute("select type_group,id from storm_stint limit 10 offset 10")
 stint_list = cur.fetchall()
-print(stint_list)
+#print(stint_list)
 
 # Will look like [(stint_type_index, stint_id)]
 
 # Getting students
 
-cur.execute("SELECT * FROM storm_student LIMIT 100;")
+cur.execute("SELECT * FROM storm_student LIMIT 1000;")
 a = cur.fetchall()
 
 #print(a)
 
 cur.execute("select column_name from information_schema.columns where table_name = 'storm_student';")
-print(cur.fetchall())
+#print(cur.fetchall())
 
 b = []
 
@@ -36,11 +37,11 @@ for i in a:
     b.append(ii)
 
 
-print(b)
+#print(b)
 
 # Getting a 'universal' student score - simple for now
 
-print(stint_list)
+#print(stint_list)
 
 for i in range(len(stint_list)):
     #print(i)
@@ -52,7 +53,8 @@ for i in range(len(stint_list)):
         else:
             average = 0
         if average != 0:
-            print(average)
+            #print(average)
+            pass
         matrix[i][j] =  average/5.0
 
 np.savetxt("matrix.txt" ,matrix,delimiter=",")

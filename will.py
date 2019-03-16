@@ -41,7 +41,7 @@ def delete_pairs(A):    # turns student row into nans if assigned to a job
         row = one_entry_row(A)
         if col is not None:    # checking if there is a column with only 1 student available
             row = np.where(A[:,col] == np.nanmax(A[:,col]))[0][0]   # finding the last available student
-            print([row, col])
+            #print([row, col])
             pairs.append([row, col])        # appending the match to the list
             A[row] *= np.nan    # setting student to unavailable for other jobs
         elif options_left(A)[0] <= options_left(A)[1] and row is not None:
@@ -58,7 +58,7 @@ def iterate(A):     # implementing the process
 
 def print_if(text, print_it):
     if print_it:
-        print(text)
+        #print(text)
 
 def iter_loop(A, print_it=True):
     st = time.time()
