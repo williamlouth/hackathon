@@ -58,6 +58,7 @@ def iterate(A):     # implementing the process
 
 def print_if(text, print_it):
     if print_it:
+        pass
         #print(text)
 
 def iter_loop(A, print_it=True):
