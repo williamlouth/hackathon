@@ -3,6 +3,7 @@ from psycopg2 import sql
 import math
 import pandas as pd
 import psycopg2 as py
+import stats
 import login
 
 conn =  login.conn
@@ -13,6 +14,19 @@ cur = conn.cursor()
 c = pd.read_excel('txt/possible_entries.xlsx')
 keywords = pd.read_excel('txt/keywords.xlsx')
 keywords_vals = keywords.values
+
+
+cur.execute(sql.SQL("select sum(past_1) from  storm_business;"))
+p1 = int(cur.fetchall()[0][0])
+cur.execute(sql.SQL("select sum(past_2) from  storm_business;"))
+p2 = int(cur.fetchall()[0][0])
+cur.execute(sql.SQL("select sum(past_3) from  storm_business;"))
+p3 = int(cur.fetchall()[0][0])
+cur.execute(sql.SQL("select sum(past_4) from  storm_business;"))
+p4 = int(cur.fetchall()[0][0])
+cur.execute(sql.SQL("select sum(past_5) from  storm_business;"))
+p5 = int(cur.fetchall()[0][0])
+distribution = [p1,p2,p3,p4,p5]
 
 a = pd.read_sql("select storm_stint.student_id,type,grade from storm_stint inner join storm_review on storm_stint.id = storm_review.stint_id;",conn)
 nump = c.values
@@ -46,7 +60,7 @@ for j in range(18):
                     cur.execute(sql.SQL("select {} from storm_student where baseuser_ptr_id=%s;").format(sql.Identifier(key_total_test[0])),[int(b[0])])
                     c = cur.fetchall()
                     new_total = float(c[0][0])
-                    new_total+=float(b[2])
+                    new_total+=stats.normalize(distribution,int(b[2]))
                     cur.execute(sql.SQL("update storm_student set {}=%s where baseuser_ptr_id=%s;").format(sql.Identifier(key_total_test[0])),[new_total,int(b[0])])
 
                     if new_number != 0:
