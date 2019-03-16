@@ -55,7 +55,8 @@ for i in range(len(stint_list)):
         if average != 0:
             #print(average)
             pass
-        if timefn.isAvailable(stint_list[i][1],student_id):
+        print(b[j][0])
+        if timefn.isAvailable(stint_list[i][1],b[j][0]):
             matrix[j][i] =  average
         else:
             matrix[j][i] =  np.nan
@@ -64,6 +65,7 @@ for i in range(len(stint_list)):
 
 np.savetxt("matrix.txt" ,matrix,delimiter=",")
 print(matrix.shape)
+print(matrix)
 list_of_pairs = will.iter_loop(matrix)
 matches = []
 for i in list_of_pairs:
