@@ -100,7 +100,6 @@ for k in reviews:
 
 	scores.append([student, total_score,total_number,total_mean])
 
-print(scores)
 
 for score in scores:
 
@@ -110,6 +109,8 @@ for score in scores:
 
 cur.execute("commit;")
 
+cur.execute("select * from storm_student LIMIT 1;")
+print(cur.fetchall())
 cur.execute("select column_name from information_schema.columns where table_name = 'storm_student';")
 #print(cur.fetchall())
 #print(cur.fetchall())
