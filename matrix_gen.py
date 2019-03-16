@@ -59,7 +59,16 @@ for i in range(len(stint_list)):
 
 np.savetxt("matrix.txt" ,matrix,delimiter=",")
 list_of_pairs = will.iter_loop(matrix)
-print(list_of_pairs)
+matches = []
+for i in list_of_pairs:
+    matches.append([stint_list[i[1]][1],b[i[0]][0]])
+    #print(stint_list[i[1]][1])
+    #print(b[i[0]][0])
+
+print(matches)
+#print(list_of_pairs)
+#print(stint_list)
+
 
 
 # --
