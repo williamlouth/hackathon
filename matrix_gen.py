@@ -6,8 +6,8 @@ import psycopg2 as py
 import login
 import will
 
-people = 1000
-matrix = np.zeros((10,people))
+people = 100
+matrix = np.zeros((people,10))
 
 conn =  login.conn
 cur = conn.cursor()
@@ -22,7 +22,8 @@ stint_list = cur.fetchall()
 
 # Getting students
 
-cur.execute("SELECT * FROM storm_student LIMIT 1000;")
+#cur.execute(sql.SQL("SELECT * FROM storm_student where wait_total != 0 LIMIT %s;").format(),[people])
+cur.execute(sql.SQL("SELECT * FROM storm_student LIMIT %s offset 100;").format(),[people])
 a = cur.fetchall()
 
 #print(a)
@@ -53,9 +54,10 @@ for i in range(len(stint_list)):
         if average != 0:
             #print(average)
             pass
-        matrix[i][j] =  average/5.0
+        matrix[j][i] =  average/5.0
 
 np.savetxt("matrix.txt" ,matrix,delimiter=",")
+print(matrix.shape)
 list_of_pairs = will.iter_loop(matrix)
 matches = []
 for i in list_of_pairs:
@@ -69,7 +71,7 @@ for i in matches:
 print(len(matches))
 #print(list_of_pairs)
 #print(stint_list)
-#print(matches)
+print(matches)
 #print(len(stint_list))
 #print(stint_list)
 #for i in range(10):
