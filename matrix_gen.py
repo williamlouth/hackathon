@@ -62,9 +62,9 @@ for i in range(len(stint_list)):
             number = b[j][int(stint_list[i][0])*3+2]
             total = b[j][int(stint_list[i][0])*3+1]
 
-            if average == 0.0:
+            overallaverage = b[j][-3]
 
-                overallaverage = b[j][-3]
+            if number < 3:
 
                 if overallaverage == 0.0:
                     average = 0.6
@@ -72,6 +72,7 @@ for i in range(len(stint_list)):
                     average = overallaverage
             else:
                 average += 0.03*math.log(number) #better to be more experienced
+                average += overallaverage/7.5
             
 
         else:
