@@ -17,7 +17,9 @@ cur = conn.cursor()
 
 # Getting stints
 
-cur.execute("select type_group,id from storm_stint limit 10 offset 300 where business_id = ")
+#cur.execute("select type_group,id from storm_stint limit 10 offset 300")
+
+cur.execute("select type_group,id from storm_stint where business_id = 142 limit 10")
 stint_list = cur.fetchall()
 
 ################################################################################################
@@ -66,6 +68,7 @@ for i in range(len(stint_list)):
             matrix[j][i] =  np.nan
 
 print(matrix)
+print(matrix.shape)
 
 np.savetxt("matrix.txt" ,matrix,delimiter=",")
 list_of_pairs = will.iter_loop(matrix) #get pairs from will.py
