@@ -1,6 +1,7 @@
 # Implements matching algorithm 
 
 import numpy as np
+import csv
 from psycopg2 import sql
 import math
 import pandas as pd
@@ -9,7 +10,7 @@ import login
 import will
 import timefn
 
-people = 6000
+people = 1000
 matrix = np.zeros((people,10))
 
 conn =  login.conn
@@ -25,17 +26,21 @@ cur = conn.cursor()
 cur.execute("SELECT storm_business.id, stints.cnt FROM storm_business INNER JOIN (SELECT COUNT(*) AS cnt, business_id FROM storm_stint GROUP BY business_id) AS stints ON stints.business_id=storm_business.id ORDER BY cnt DESC LIMIT 30;")
 bigbusiness = cur.fetchall()
 
+with open('txt/BusinessRank.csv','r') as f:
+    reader = csv.reader(f)
+    bus_ranks = list(reader)
+#print(bus_ranks)
 businessids = []
 
 for business in bigbusiness:
     businessids.append(business[0])
 
-print(businessids)
+#print(businessids)
 
 cur.execute("select type_group,id from storm_stint where business_id in %s limit 10",(tuple(businessids),))
 stint_list = cur.fetchall()
 
-print(stint_list)
+#print(stint_list)
 
 ################################################################################################
 
@@ -64,7 +69,21 @@ for i in range(len(stint_list)):
             number = b[j][int(stint_list[i][0])*3+2]
             total = b[j][int(stint_list[i][0])*3+1]
 
-            overallaverage = b[j][-3]
+            overallaverage = b[j][-1]
+            overallnumber = b[j][-2]
+
+
+            m_stint = stint_list[i][1]
+            
+            cur.execute(sql.SQL("SELECT business_id FROM storm_stint where id = %s;").format(),[m_stint])
+            new_bus_ref = cur.fetchall()[0][0]
+            cur.execute(sql.SQL("SELECT ref FROM storm_business where id = %s;").format(),[new_bus_ref])
+            new_bus_ref = cur.fetchall()[0]
+            new_bus_rank = 0
+            for k in bus_ranks:
+                if k[0] == new_bus_ref:
+                    new_bus_rank = k[1]
+                    
 
             if number < 3:
 
@@ -75,13 +94,15 @@ for i in range(len(stint_list)):
             else:
                 average += 0.03*math.log(number) #better to be more experienced
                 average += overallaverage/7.5
+
+            if new_bus_rank == 4:
+                if overallnumber < 5:
+                    average = 0.0
             
 
         else:
             average = 0
         
-
-
         # Have implemented checking for availability below 
         # but database deletes availability instances in past
         # so will need current data to run.
@@ -91,10 +112,11 @@ for i in range(len(stint_list)):
         if timefn.isAvailable(stint_list[i][1],b[j][0]):
             matrix[j][i] =  average
         else:
-            matrix[j][i] =  np.nan
+            #matrix[j][i] =  np.nan
+            matrix[j][i] =  average
 
-print(matrix)
-print(matrix.shape)
+#print(matrix)
+#print(matrix.shape)
 
 np.savetxt("matrix.txt" ,matrix,delimiter=",")
 list_of_pairs = will.iter_loop(matrix) #get pairs from will.py
@@ -102,7 +124,7 @@ matches = []
 for i in list_of_pairs:
     matches.append([stint_list[i[1]][1],b[i[0]][0]])
 
-print(matches)
+#print(matches)
 
 refmatches = []
 
