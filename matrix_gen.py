@@ -31,6 +31,10 @@ for business in bigbusiness:
     businessids.append(business[0])
 
 print(businessids)
+
+cur.execute(sql.SQL("select type_group,id from storm_stint where business_id in %s limit 10").format(),[businessids])
+stint_list = cur.fetchall()
+
 ################################################################################################
 
 #cur.execute("select type_group,id from storm_stint limit 10 offset 300")
