@@ -41,7 +41,11 @@ def getdistance(student_id,stint_id):
 
     # Getting stint notation
 
-    
+    cur.execute(sql.SQL("select * from storm_stint where id = %s;").format(), [stint_id])
+    datalist = cur.fetchall()
+    stintlocation = [datalist[0][6]] + [datalist[0][7]]
+
+    return haversine(studentlocation[0], studentlocation[1], stintlocation[0], stintlocation[1])
 
  
 getdistance(6,10)

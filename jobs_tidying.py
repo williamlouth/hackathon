@@ -2,6 +2,7 @@ import pandas as pd
 import numpy as np
 import seaborn as sns
 from pandas import ExcelWriter
+import will as w
 
 df_stint = pd.read_pickle("stint.txt")
 #df_business = pd.read_pickle("business.txt")
@@ -50,6 +51,7 @@ for word in keywords:
     #print(list_of_works[keywords.index(word)])
     my_series = delete_from_series(my_series, list_of_works[keywords.index(word)])
 
-#print(my_series.value_counts())
+print(my_series.value_counts())
 #print(my_series.shape[0])
-print(list((2,2)))
+#print(list((2,2)))
+w.iter_loop()
