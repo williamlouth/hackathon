@@ -13,8 +13,9 @@ import timefn
 #from backports import csv
 import io
 
-people = 100
-matrix = np.zeros((people,10))
+people = 2
+number_of_stints = 10 #this breaks if it cant find enough stints
+matrix = np.zeros((people,number_of_stints))
 
 conn =  login.conn
 cur = conn.cursor()
@@ -29,6 +30,9 @@ cur = conn.cursor()
 cur.execute("SELECT storm_business.id, stints.cnt FROM storm_business INNER JOIN (SELECT COUNT(*) AS cnt, business_id FROM storm_stint GROUP BY business_id) AS stints ON stints.business_id=storm_business.id ORDER BY cnt DESC LIMIT 30;")
 bigbusiness = cur.fetchall()
 
+cur.execute("SELECT storm_business.id, stints.cnt FROM storm_business INNER JOIN (SELECT COUNT(*) AS cnt, business_id FROM storm_stint GROUP BY business_id) AS stints ON stints.business_id=storm_business.id ORDER BY cnt DESC LIMIT 30;")
+thing = cur.fetchall()
+print(thing)
 #with open('txt/BusinessRank.csv','r') as f:
 #    reader = csv.reader(f)
 #    bus_ranks = list(reader)
@@ -39,11 +43,11 @@ with io.open('txt/BusinessRank.csv', encoding='utf-8') as f:
     bus_ranks = list(r)
 
 refs  = [item[0] for item in bus_ranks]
-print(refs, "refs")
+#print(refs, "refs")
 cur.execute("select id from storm_business where ref in %s;",(tuple(refs),))
 newids = cur.fetchall()
 newids = [item[0] for item in newids]
-print(newids)
+#print(newids)
 
 businessids = []
 
@@ -52,8 +56,10 @@ for business in bigbusiness:
 
 #print(businessids)
 
-cur.execute("select type_group,id from storm_stint where business_id in %s and business_id in %s limit 10",(tuple(businessids),tuple(newids)) )
+#cur.execute(sql.SQL("select type_group,id from storm_stint where business_id in %s and business_id in %s  limit %s"),(tuple(businessids),tuple(newids),number_of_stints))
+cur.execute(sql.SQL("select storm_stint.type_group,storm_stint.id from storm_stint inner join storm_business on storm_stint.business_id = storm_business.id where storm_stint.business_id in %s and storm_stint.business_id in %s limit %s"),(tuple(businessids),tuple(newids),number_of_stints))
 stint_list = cur.fetchall()
+print(stint_list)
 
 #print(stint_list)
 
@@ -91,16 +97,15 @@ for i in range(len(stint_list)):
             m_stint = stint_list[i][1]
             
             cur.execute(sql.SQL("SELECT business_id FROM storm_stint where id = %s;").format(),[m_stint])
-            new_bus_ref = cur.fetchall()[0][0]
-            cur.execute(sql.SQL("SELECT ref FROM storm_business where id = %s;").format(),[new_bus_ref])
+            new_bus_id = cur.fetchall()[0][0]
+            cur.execute(sql.SQL("SELECT ref FROM storm_business where id = %s;").format(),[new_bus_id])
             new_bus_ref = cur.fetchall()[0]
-            new_bus_rank = 0
-            for k in bus_ranks:
-                if k[0] == new_bus_ref:
-                    new_bus_rank = k[1]
+            cur.execute(sql.SQL("SELECT rank FROM storm_business where id = %s;").format(),[new_bus_id])
+            new_bus_rank = cur.fetchall()[0][0]
                     
 
-                    print(new_bus_rank)
+            if new_bus_rank != 0:
+                print(new_bus_rank)
             if number < 3:
 
                 if overallaverage == 0.0:
@@ -114,7 +119,7 @@ for i in range(len(stint_list)):
             if new_bus_rank == 4:
                 print(new_bus_rank)
                 if overallnumber < 5:
-                    average = 0.0
+                    average = np.nan
             
 
         else:
@@ -142,11 +147,15 @@ for i in range(len(stint_list)):
 np.savetxt("matrix.txt" ,matrix,delimiter=",")
 list_of_pairs = will.iter_loop(matrix) #get pairs from will.py
 matches = []
+
 for i in list_of_pairs:
+    print(i[1])
+    print(len(stint_list))
+    print(stint_list[i[1]][0])
     matches.append([stint_list[i[1]][1],b[i[0]][0]])
 
 
-print(matches)
+#print(matches)
 
 refmatches = []
 
@@ -158,7 +167,8 @@ for i in matches:
 
     refmatches.append([ref1,ref2])
 
-print(refmatches)
+
+#print(refmatches)
 ser = pd.Series(refmatches)
 ser.to_csv('output_matches.csv')
 print(len(refmatches))
