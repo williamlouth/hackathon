@@ -15,7 +15,7 @@ import timefn
 
 import io
 
-people = 1000
+people = 6000
 number_of_stints = 10 
 
 matrix = np.zeros((people,number_of_stints))
@@ -105,12 +105,10 @@ for i in range(len(stint_list)):
             else:
                 average += 0.03*math.log(number) #better to be more experienced
                 average += overallaverage/7.5
-                dist = distance.getdistance(student_id,stint_id)
-                average += 0.1*math.exp(-0.7*dist)
 
             if new_bus_rank == 4:
                 if overallnumber < 5:
-                    average = np.nan #dont send inexperince people to level 4
+                    average = np.nan # don't send inexperinced people to level 4
 
         else:
             average = 0
@@ -158,4 +156,3 @@ for i in matches:
 print(refmatches)
 ser = pd.Series(refmatches)
 ser.to_csv('output_matches.csv')
-print(len(refmatches))
