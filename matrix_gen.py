@@ -24,6 +24,16 @@ stint_list = cur.fetchall()
 
 ################################################################################################
 # Getting high-level businesses #
+
+cur.execute("SELECT storm_business.id, stints.cnt FROM storm_business INNER JOIN (SELECT COUNT(*) AS cnt, business_id FROM storm_stint GROUP BY business_id) AS stints ON stints.business_id=storm_business.id ORDER BY cnt DESC;")
+bigbusiness = cur.fetchall()
+
+businessids = []
+
+for business in bigbusiness:
+    businessids.append(business[0])
+
+print(businessids)
 ################################################################################################
 
 # Getting students
