@@ -19,7 +19,7 @@ cur = conn.cursor()
 
 #cur.execute("select type_group,id from storm_stint limit 10 offset 300")
 
-cur.execute("select type_group,id from storm_stint where business_id = 142 limit 10")
+cur.execute("select type_group,id from storm_stint where business_id = 454 limit 10")
 stint_list = cur.fetchall()
 
 ################################################################################################
