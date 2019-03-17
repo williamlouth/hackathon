@@ -10,7 +10,7 @@ import login
 import will
 import timefn
 
-people = 1000
+people = 6000
 matrix = np.zeros((people,10))
 
 conn =  login.conn
