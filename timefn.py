@@ -74,4 +74,4 @@ def isAvailable(stintid,studentid):
             return True
     return False
     
-#print(isAvailable(3598,6))
+print(isAvailable(3598,6))

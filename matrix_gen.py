@@ -9,7 +9,7 @@ import login
 import will
 import timefn
 
-people = 1000
+people = 6000
 matrix = np.zeros((people,10))
 
 conn =  login.conn
@@ -17,7 +17,7 @@ cur = conn.cursor()
 
 # Getting stints
 
-cur.execute("select type_group,id from storm_stint limit 10 offset 10")
+cur.execute("select type_group,id from storm_stint limit 10 offset 300")
 stint_list = cur.fetchall()
 
 ################################################################################################
@@ -61,16 +61,16 @@ for i in range(len(stint_list)):
         # but database deletes availability instances in past
         # so will need current data to run.
 
-        matrix[j][i] = average
+        #matrix[j][i] = average
 
-        #if timefn.isAvailable(stint_list[i][1],b[j][0]):
-        #    matrix[j][i] =  average
-        #else:
-        #    matrix[j][i] =  np.nan
+        if timefn.isAvailable(stint_list[i][1],b[j][0]):
+            matrix[j][i] =  average
+        else:
+            matrix[j][i] =  np.nan
 
 print(matrix)
 
-#np.savetxt("matrix.txt" ,matrix,delimiter=",")
+np.savetxt("matrix.txt" ,matrix,delimiter=",")
 list_of_pairs = will.iter_loop(matrix) #get pairs from will.py
 matches = []
 for i in list_of_pairs:
@@ -89,6 +89,7 @@ for i in matches:
     refmatches.append([ref1,ref2])
 
 print(refmatches)
+print(len(refmatches))
 
 
 
