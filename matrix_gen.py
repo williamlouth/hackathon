@@ -42,6 +42,7 @@ for i in range(len(stint_list)):
             average = b[j][int(stint_list[i][0])*3+3]
         else:
             average = 0
+            
             # here we don't put 0 but rather average scores
 
             print(b[j])
