@@ -1,3 +1,6 @@
+# Populates studentavailability to allow for testing of 
+# matching algorithm with implementation of time matching
+
 import numpy as np
 import random
 from decimal import *
