@@ -14,7 +14,7 @@ import timefn
 
 import io
 
-people = 2
+people = 1000
 number_of_stints = 10 #this breaks if it cant find enough stints
 matrix = np.zeros((people,number_of_stints))
 
@@ -22,8 +22,6 @@ conn =  login.conn
 cur = conn.cursor()
 
 # Getting stints
-
-
 
 ################################################################################################
 # Getting high-level businesses for testing #
@@ -173,7 +171,3 @@ for i in matches:
 ser = pd.Series(refmatches)
 ser.to_csv('output_matches.csv')
 print(len(refmatches))
-
-
-
-
