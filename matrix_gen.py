@@ -13,7 +13,7 @@ import timefn
 #from backports import csv
 import io
 
-people = 1000
+people = 100
 matrix = np.zeros((people,10))
 
 conn =  login.conn
@@ -38,6 +38,13 @@ with io.open('txt/BusinessRank.csv', encoding='utf-8') as f:
     r = csv.reader(f)
     bus_ranks = list(r)
 
+refs  = [item[0] for item in bus_ranks]
+print(refs, "refs")
+cur.execute("select id from storm_business where ref in %s;",(tuple(refs),))
+newids = cur.fetchall()
+newids = [item[0] for item in newids]
+print(newids)
+
 businessids = []
 
 for business in bigbusiness:
@@ -45,7 +52,7 @@ for business in bigbusiness:
 
 #print(businessids)
 
-cur.execute("select type_group,id from storm_stint where business_id in %s limit 10",(tuple(businessids),))
+cur.execute("select type_group,id from storm_stint where business_id in %s and business_id in %s limit 10",(tuple(businessids),tuple(newids)) )
 stint_list = cur.fetchall()
 
 #print(stint_list)
