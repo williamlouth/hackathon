@@ -20,8 +20,8 @@ print(cur.fetchall())
 #print(cur.execute("copy storm_stint to 'stint.csv' delimeter ',' csv header;"))
 #print(cur.fetchall())
 
-#a = pd.read_sql('select * from storm_student',conn)
-#a.to_pickle('student.txt')
+a = pd.read_sql('select * from storm_business',conn)
+a.to_pickle('new_business.txt')
 #print(a)
 
 #cur.execute("select * from storm_student LIMIT 1;")
