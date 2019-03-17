@@ -51,14 +51,16 @@ def isAvailable(stintid,studentid):
     for av in studentdata:
         ii = [toSeconds(av[6].replace(tzinfo=None))] + [toSeconds(av[7].replace(tzinfo=None))]
         studenttimes.append(ii)
-    
 
+    
+    
+    #print(studentdata)
     #print("Stint Time")
     #print(stinttimes)
     #print("Student Times")
     #print(studenttimes)
-    #print("Student Times 2")
-    #print(Sort(studenttimes))
+    print("Student Times 2")
+    print(Sort(studenttimes))
 
     sorted_studenttimes = mergetime.merge_times(Sort(studenttimes))
 
@@ -74,4 +76,5 @@ def isAvailable(stintid,studentid):
             return True
     return False
     
-print(isAvailable(3598,6))
+print(isAvailable(237,313))
+

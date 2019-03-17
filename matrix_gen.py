@@ -107,13 +107,17 @@ for i in range(len(stint_list)):
         # but database deletes availability instances in past
         # so will need current data to run.
 
-        #matrix[j][i] = average
+        matrix[j][i] = average
 
-        if timefn.isAvailable(stint_list[i][1],b[j][0]):
-            matrix[j][i] =  average
-        else:
-            #matrix[j][i] =  np.nan
-            matrix[j][i] =  average
+        #if timefn.isAvailable(stint_list[i][1],b[j][0]):
+        #    matrix[j][i] =  average
+        #else:
+        #    #matrix[j][i] =  np.nan
+        #    matrix[j][i] =  average
+        #if timefn.isAvailable(stint_list[i][1],b[j][0]):
+        #    matrix[j][i] =  average
+        #else:
+        #    matrix[j][i] =  np.nan
 
 #print(matrix)
 #print(matrix.shape)
