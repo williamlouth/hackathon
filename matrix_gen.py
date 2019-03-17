@@ -8,6 +8,7 @@ import pandas as pd
 import psycopg2 as py
 import login
 import will
+import distance
 import timefn
 
 #from backports import csv
@@ -15,9 +16,9 @@ import timefn
 import io
 
 people = 1000
-number_of_stints = 10 #this breaks if it cant find enough stints
-matrix = np.zeros((people,number_of_stints))
+number_of_stints = 10 
 
+matrix = np.zeros((people,number_of_stints))
 conn =  login.conn
 cur = conn.cursor()
 
@@ -26,16 +27,8 @@ cur = conn.cursor()
 ################################################################################################
 # Getting high-level businesses for testing #
 
-cur.execute("SELECT storm_business.id, stints.cnt FROM storm_business INNER JOIN (SELECT COUNT(*) AS cnt, business_id FROM storm_stint GROUP BY business_id) AS stints ON stints.business_id=storm_business.id ORDER BY cnt DESC LIMIT 30;")
+cur.execute("SELECT  storm_business.id, stints.cnt FROM storm_business INNER JOIN (SELECT COUNT(*) AS cnt, business_id FROM storm_stint GROUP BY business_id) AS stints ON stints.business_id=storm_business.id ORDER BY cnt DESC LIMIT 30;")
 bigbusiness = cur.fetchall()
-
-cur.execute("SELECT storm_business.id, stints.cnt FROM storm_business INNER JOIN (SELECT COUNT(*) AS cnt, business_id FROM storm_stint GROUP BY business_id) AS stints ON stints.business_id=storm_business.id ORDER BY cnt DESC LIMIT 30;")
-thing = cur.fetchall()
-print(thing)
-#with open('txt/BusinessRank.csv','r') as f:
-#    reader = csv.reader(f)
-#    bus_ranks = list(reader)
-#print(bus_ranks)
 
 with io.open('txt/BusinessRank.csv', encoding='utf-8') as f:
     r = csv.reader(f)
@@ -53,12 +46,13 @@ businessids = []
 for business in bigbusiness:
     businessids.append(business[0])
 
-#print(businessids)
 
 #cur.execute(sql.SQL("select type_group,id from storm_stint where business_id in %s and business_id in %s  limit %s"),(tuple(businessids),tuple(newids),number_of_stints))
+print(number_of_stints)
 cur.execute(sql.SQL("select storm_stint.type_group,storm_stint.id from storm_stint inner join storm_business on storm_stint.business_id = storm_business.id where storm_stint.business_id in %s and storm_stint.business_id in %s limit %s"),(tuple(businessids),tuple(newids),number_of_stints))
 stint_list = cur.fetchall()
 print(stint_list)
+#number_of_stints = len(stint_list)
 
 #print(stint_list)
 
@@ -103,10 +97,7 @@ for i in range(len(stint_list)):
             new_bus_rank = cur.fetchall()[0][0]
                     
 
-            if new_bus_rank != 0:
-                print(new_bus_rank)
             if number < 3:
-
                 if overallaverage == 0.0:
                     average = 0.6
                 else:
@@ -114,12 +105,12 @@ for i in range(len(stint_list)):
             else:
                 average += 0.03*math.log(number) #better to be more experienced
                 average += overallaverage/7.5
+                dist = distance.getdistance(student_id,stint_id)
+                average += 0.1*math.exp(-0.7*dist)
 
             if new_bus_rank == 4:
-                print(new_bus_rank)
                 if overallnumber < 5:
-                    average = np.nan
-            
+                    average = np.nan #dont send inexperince people to level 4
 
         else:
             average = 0
@@ -148,9 +139,6 @@ list_of_pairs = will.iter_loop(matrix) #get pairs from will.py
 matches = []
 
 for i in list_of_pairs:
-    print(i[1])
-    print(len(stint_list))
-    print(stint_list[i[1]][0])
     matches.append([stint_list[i[1]][1],b[i[0]][0]])
 
 
@@ -167,7 +155,7 @@ for i in matches:
     refmatches.append([ref1,ref2])
 
 
-#print(refmatches)
+print(refmatches)
 ser = pd.Series(refmatches)
 ser.to_csv('output_matches.csv')
 print(len(refmatches))
