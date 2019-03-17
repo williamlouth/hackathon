@@ -10,6 +10,9 @@ import login
 import will
 import timefn
 
+from backports import csv
+import io
+
 people = 6000
 matrix = np.zeros((people,10))
 
@@ -26,10 +29,15 @@ cur = conn.cursor()
 cur.execute("SELECT storm_business.id, stints.cnt FROM storm_business INNER JOIN (SELECT COUNT(*) AS cnt, business_id FROM storm_stint GROUP BY business_id) AS stints ON stints.business_id=storm_business.id ORDER BY cnt DESC LIMIT 30;")
 bigbusiness = cur.fetchall()
 
-with open('txt/BusinessRank.csv','r') as f:
-    reader = csv.reader(f)
-    bus_ranks = list(reader)
+#with open('txt/BusinessRank.csv','r') as f:
+#    reader = csv.reader(f)
+#    bus_ranks = list(reader)
 #print(bus_ranks)
+
+with io.open('txt/BusinessRank.csv', encoding='utf-8') as f:
+    r = csv.reader(f)
+    bus_ranks = list(r)
+
 businessids = []
 
 for business in bigbusiness:
@@ -127,6 +135,7 @@ list_of_pairs = will.iter_loop(matrix) #get pairs from will.py
 matches = []
 for i in list_of_pairs:
     matches.append([stint_list[i[1]][1],b[i[0]][0]])
+
 
 #print(matches)
 
