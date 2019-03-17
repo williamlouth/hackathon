@@ -20,7 +20,7 @@ cur = conn.cursor()
 
 
 ################################################################################################
-# Getting high-level businesses #
+# Getting high-level businesses for testing #
 
 cur.execute("SELECT storm_business.id, stints.cnt FROM storm_business INNER JOIN (SELECT COUNT(*) AS cnt, business_id FROM storm_stint GROUP BY business_id) AS stints ON stints.business_id=storm_business.id ORDER BY cnt DESC LIMIT 30;")
 bigbusiness = cur.fetchall()
