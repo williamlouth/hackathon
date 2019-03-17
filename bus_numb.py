@@ -7,10 +7,6 @@ import login
 
 conn =  login.conn
 cur = conn.cursor()
-#cur.execute("select storm_stint.student_id,type,grade from storm_stint inner join storm_review on storm_stint.id = storm_review.stint_id;")
-#cur.execute("select * from storm_student LIMIT 1;")
-#print(cur.fetchall())
-
 
 for i in range(1,6):
     field = "past_" + str(i)

@@ -14,7 +14,7 @@ keywords = pd.read_excel('txt/keywords.xlsx')
 keywords_vals = keywords.values
 
 def distribution_maker(bus_id):
-    cur.execute(sql.SQL("select past_5, past_4,past_3,past_2,past_1 from  storm_business where id = %s;"),[int(bus_id)])
+    cur.execute(sql.SQL("select past_5, past_4,past_3,past_2,past_1 from  storm_business where id = %s;"),[bus_id])
     distribution = cur.fetchall()[0]
     if sum(distribution) > 20:
         return distribution
@@ -56,8 +56,9 @@ for j in range(18):
                     c = cur.fetchall()
                     new_total = float(c[0][0])
 
-                    cur.execute(sql.SQL("select business_id from storm_stint where id=%s;").format(),[int(b[3])])
-                    bus_id = cur.fetchall()[0][0]
+                    #cur.execute(sql.SQL("select business_id from storm_stint where id=%s;").format(),[int(b[3])])
+                    #bus_id = cur.fetchall()[0][0]
+                    bus_id = int(b[3])
                     distr = distribution_maker(bus_id)
                     new_total+=stats.normalize(distr,int(b[2]))
                     cur.execute(sql.SQL("update storm_student set {}=%s where baseuser_ptr_id=%s;").format(sql.Identifier(key_total_test[0])),[new_total,int(b[0])])

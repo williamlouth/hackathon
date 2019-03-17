@@ -1,9 +1,11 @@
+# Adds columns storing student overall and job-specific student ratings, stint types, 
+# distribution of ratings given by businesses used to normalise student scores
+
 import pandas as pd
 import psycopg2 as py
 import login
 
 conn = login.conn
-
 cur = conn.cursor()
 
 a = pd.read_excel('txt/keywords.xlsx')
@@ -11,7 +13,6 @@ b=a.values
 print(b)
 
 for i in b:
-    print(i[0])
     tot = i[0] + '_total'
     number = i[0] + '_number'
     average = i[0] + '_average'
@@ -23,7 +24,6 @@ for i in b:
     #cur.execute("alter table storm_student drop %s ;" % average)
     #cur.execute("alter table storm_student drop %s ;" % number)
 
-    print(tot)
     
 #cur.execute("alter table storm_stint add type_group Text;")
 #cur.execute("alter table storm_stint drop type_group ;")
@@ -36,11 +36,11 @@ for i in b:
 #cur.execute("alter table storm_student drop total_number ;")
 
 
-#cur.execute("alter table storm_business add past_1 int;" )
-#cur.execute("alter table storm_business add past_2 int;" )
-#cur.execute("alter table storm_business add past_3 int;" )
-#cur.execute("alter table storm_business add past_4 int;" )
-#cur.execute("alter table storm_business add past_5 int;" )
+cur.execute("alter table storm_business add past_1 int;" )
+cur.execute("alter table storm_business add past_2 int;" )
+cur.execute("alter table storm_business add past_3 int;" )
+cur.execute("alter table storm_business add past_4 int;" )
+cur.execute("alter table storm_business add past_5 int;" )
 #cur.execute("alter table storm_business drop past_1 ;")
 #cur.execute("alter table storm_business drop past_2 ;")
 #cur.execute("alter table storm_business drop past_3 ;")
@@ -49,14 +49,9 @@ for i in b:
 
 cur.execute("select column_name from information_schema.columns where table_name = 'storm_business';")
 print(cur.fetchall())
-#print(cur.fetchall())
-#cur.execute("alter table storm_student drop bar_number ;")
-#cur.execute("select * from storm_student LIMIT 1;")
-#print(cur.fetchall())
 cur.execute("commit;")
 cur.execute("select column_name from information_schema.columns where table_name = 'storm_student';")
 print(cur.fetchall())
-#print(cur.fetchall())
 
 
 

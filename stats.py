@@ -4,6 +4,7 @@ import numpy as np
 
 def normalize(distribution, grade):
     #print(len(distribution))
+    #print(distribution)
     #print(grade)
     #print(distribution[(5 - grade):])
     a =  np.sum(distribution[5 - grade:]) / np.sum(distribution)
