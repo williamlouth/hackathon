@@ -28,5 +28,5 @@ def work_with(student_id,stint_id):
     cur = conn.cursor()
     
 
-    haversine(stud_lon,stud_lat,stin_lon,stin_lat)
+    traveldistance = haversine(stud_lon,stud_lat,stin_lon,stin_lat)
     return traveldistance

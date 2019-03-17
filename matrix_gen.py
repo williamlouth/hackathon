@@ -141,6 +141,8 @@ for i in matches:
     refmatches.append([ref1,ref2])
 
 print(refmatches)
+ser = pd.Series(refmatches)
+ser.to_csv('output_matches.csv')
 print(len(refmatches))
 
 
