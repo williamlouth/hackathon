@@ -10,9 +10,9 @@ cur = conn.cursor()
 print(cur.execute("select * FROM storm_stint LIMIT 1;"))
 
 print(cur.fetchall())
-#print(cur.execute("select column_name from information_schema.columns where table_name = 'storm_review';"))
+print(cur.execute("select column_name from information_schema.columns where table_name = 'storm_studentavailability';"))
 #print(cur.execute("dt;"))
-#print(cur.fetchall())
+print(cur.fetchall())
 #cur.execute("select * from storm_student LIMIT 1;")
 #print(cur.fetchall())
 
