@@ -9,6 +9,8 @@ import stats
 import timefn
 import datetime
 from psycopg2 import sql
+import csv
+import io
 
 ####################################################################################
 # This is a file meant to be run once to make database modifications - uncomment   #
@@ -137,11 +139,72 @@ for j in range(18):
 # Committing changes
 
 cur.execute("commit;")
-print("Success populating new columns.")
+print("Success populating student columns.")
 
+# Populating business columns
 
+with io.open('txt/BusinessRank.csv',encoding='utf-8') as f:
+    r = csv.reader(f)
+    bus_ranks = list(r)
 
+for i in range(1,6):
+    field = "past_" + str(i)
+    cur.execute(sql.SQL("update storm_business set {}=0;").format(sql.Identifier(str(field))))
+cur.execute("commit;")
 
+cur.execute("select grade,business_id from storm_review;")
+data = cur.fetchall()
+for i in data:
+    grade = i[0]
+    bus_id = i[1]
+    field = "past_" + str(grade)
 
+    cur.execute(sql.SQL("update storm_business set {}={}+1 where id=%s;").format(sql.Identifier(field),sql.Identifier(field)),[bus_id])
 
+cur.execute(sql.SQL("update storm_business set rank=0;")) #set all rank to zero
+for i in bus_ranks[1:]:
+    rank = i[1]
+    if len(rank) == 0:
+        rank =0
+    m_id = i[0]
+    rank = int(rank)
+    cur.execute(sql.SQL("update storm_business set rank=%s where ref=%s;"),[rank,m_id])
 
+# Committing changes
+
+cur.execute("commit;")
+print("Success populating business columns.")
+
+# Populates type_group for stints
+
+c_vals = c.values
+for i in range(0,17):
+    print(keywords_vals[i])
+    for j in range(0,17):
+        if isinstance(c_vals[i][j],str):
+            cur.execute(sql.SQL("update storm_stint set type_group=%s where type = %s;"),[i,str(c_vals[i][j])])
+
+# Committing changes
+
+cur.execute("commit;")
+print("Success populating stint columns.")
+
+# Populates studentavailability to allow for testing of 
+# matching algorithm with implementation of time matching
+
+cur.execute(sql.SQL("select max(id) from storm_studentavailability"))
+id_max = cur.fetchall()[0][0]
+id_max +=1
+cur.execute(sql.SQL("select count(id) from storm_stint"))
+stu_len = cur.fetchall()[0][0]
+
+for i in range(stu_len):
+    cur.execute(sql.SQL("select max(id) from storm_studentavailability"))
+    id_max = cur.fetchall()[0][0]
+    id_max +=1
+    ref_max = str(random.randint(10000,999999999999))
+    cur.execute(sql.SQL("insert into storm_studentavailability (id,student_id,date_from,date_to,longitude,latitude,created_at,modified_at,ref,address,disabled) select %s, student_id,date_from,date_to,longitude,latitude,date_from,date_from,%s,location_address,false from storm_stint limit 1;"),[id_max,ref_max])
+
+cur.execute("commit;")
+print("Success populating student availability columns.")
+print("Complete.")

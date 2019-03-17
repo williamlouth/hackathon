@@ -11,6 +11,11 @@ import will
 import distance
 import timefn
 
+<<<<<<< HEAD
+=======
+#from backports import csv
+
+>>>>>>> bda1d85f7075d6188427c05cfa57f2022d2699da
 import io
 
 people = 10
