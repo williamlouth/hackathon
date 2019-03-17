@@ -1,6 +1,12 @@
+import numpy as np
+import csv
+from psycopg2 import sql
+import math
+import pandas as pd
 import psycopg2 as py
 import login
-import numpy as np
+import will
+import timefn
 # Implements Haversine formula to calculate great circle distance between two points on the earth
 
 from math import radians, cos, sin, asin, sqrt
@@ -22,11 +28,39 @@ def haversine(lon1, lat1, lon2, lat2):
     r = 6371 # Radius of earth in kilometers. Use 3956 for miles
     return c * r
 
-def work_with(student_id,stint_id):
+def getdistance(student_id,stint_id):
 
     conn = login.conn
     cur = conn.cursor()
+
+    # Getting student location
+
+    cur.execute(sql.SQL("select * from storm_studentavailability where student_id = %s;").format(),[student_id])
+    datalist = cur.fetchall()
+    studentlocation = [datalist[0][8]] + [datalist[0][9]]
+
+    # Getting stint notation
+
     
 
+ 
+getdistance(6,10)
+
+
+'''
+            cur.execute(sql.SQL("SELECT ref FROM storm_business where id = %s;").format(),[new_bus_ref])
+
+    cur.execute("select * from storm_studentavailability LIMIT 1;")
+studentavs = cur.fetchall()
+
+studenttimes = []
+
+for av in studentavs:
+    ii = [av[0]] + [av[6]] + [av[7]]
+    studenttimes.append(ii)
+
+print(studenttimes[0])
+    '''
+'''
     traveldistance = haversine(stud_lon,stud_lat,stin_lon,stin_lat)
-    return traveldistance
+    return traveldistance'''
