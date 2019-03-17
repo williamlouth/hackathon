@@ -49,10 +49,10 @@ cur.execute("alter table storm_business add rank int;" )
 #cur.execute("alter table storm_business drop past_4 ;")
 #cur.execute("alter table storm_business drop past_5 ;")
 
-cur.execute("select column_name from information_schema.columns where table_name = 'storm_business';")
-print(cur.fetchall())
+#cur.execute("select column_name from information_schema.columns where table_name = 'storm_business';")
+#print(cur.fetchall())
 cur.execute("commit;")
-cur.execute("select column_name from information_schema.columns where table_name = 'storm_student';")
+#cur.execute("select column_name from information_schema.columns where table_name = 'storm_student';")
 print(cur.fetchall())
 
 
