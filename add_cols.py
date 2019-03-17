@@ -33,11 +33,11 @@ for i in b:
 #cur.execute("alter table storm_student drop total_number ;")
 
 
-#cur.execute("alter table storm_business add past_1 int;" )
-#cur.execute("alter table storm_business add past_2 int;" )
-#cur.execute("alter table storm_business add past_3 int;" )
-#cur.execute("alter table storm_business add past_4 int;" )
-#cur.execute("alter table storm_business add past_5 int;" )
+cur.execute("alter table storm_business add past_1 int;" )
+cur.execute("alter table storm_business add past_2 int;" )
+cur.execute("alter table storm_business add past_3 int;" )
+cur.execute("alter table storm_business add past_4 int;" )
+cur.execute("alter table storm_business add past_5 int;" )
 #cur.execute("alter table storm_business drop past_1 ;")
 #cur.execute("alter table storm_business drop past_2 ;")
 #cur.execute("alter table storm_business drop past_3 ;")

@@ -7,7 +7,7 @@ import login
 import will
 import timefn
 
-people = 100
+people = 1000
 matrix = np.zeros((people,10))
 
 conn =  login.conn
@@ -26,8 +26,6 @@ stint_list = cur.fetchall()
 cur.execute(sql.SQL("SELECT * FROM storm_student LIMIT %s offset 100;").format(),[people])
 a = cur.fetchall()
 
-
-
 b = []
 
 for i in a:
@@ -40,14 +38,32 @@ for i in range(len(stint_list)):
     for j in range(len(b)):
         if isinstance(stint_list[i][0],str):
             average = b[j][int(stint_list[i][0])*3+3]
+
+            if average == 0.0:
+
+                overallaverage = b[j][-3]
+
+                if overallaverage == 0.0:
+                    average = 0.6
+
         else:
             average = 0
-        if timefn.isAvailable(stint_list[i][1],b[j][0]):
-            matrix[j][i] =  average
-        else:
-            matrix[j][i] =  np.nan
+        
 
+        print(average)
 
+        # Have implemented checking for availability below 
+        # but database deletes availability instances in past
+        # so will need current data to run.
+
+        matrix[j][i] = average
+
+        #if timefn.isAvailable(stint_list[i][1],b[j][0]):
+        #    matrix[j][i] =  average
+        #else:
+        #    matrix[j][i] =  np.nan
+
+print(matrix)
 
 #np.savetxt("matrix.txt" ,matrix,delimiter=",")
 list_of_pairs = will.iter_loop(matrix) #get pairs from will.py
@@ -59,17 +75,7 @@ for i in matches:
     cur.execute(sql.SQL("select ref from storm_stint where id = %s;").format(),[i[0]])
     cur.execute(sql.SQL("select ref from storm_baseuser where id = %s;").format(),[i[1]])
 
+
 print(matches)
-
-
-
-
-
-
-
-
-
-
-
 
 
