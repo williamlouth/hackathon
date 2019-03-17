@@ -62,22 +62,14 @@ def isAvailable(stintid,studentid):
 
     sorted_studenttimes = mergetime.merge_times(Sort(studenttimes))
 
-    print(stinttimes)
-    print(stinttimes[0])
-    print(stinttimes[1])
-    print("stop")
+  
 
 
     # Testing if stint time is included in one of the student times
 
 
     for time in sorted_studenttimes:
-        print(time)
-        print(time[0])
-        print(time[1])
 
-        
-        
         if (time[0] <= stinttimes[0]) and (time[1] >= stinttimes[1]):
             return True
     return False
