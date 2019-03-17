@@ -13,7 +13,7 @@ import timefn
 #from backports import csv
 import io
 
-people = 1000
+people = 100
 matrix = np.zeros((people,10))
 
 conn =  login.conn
@@ -93,6 +93,7 @@ for i in range(len(stint_list)):
                     new_bus_rank = k[1]
                     
 
+                    print(new_bus_rank)
             if number < 3:
 
                 if overallaverage == 0.0:
@@ -104,6 +105,7 @@ for i in range(len(stint_list)):
                 average += overallaverage/7.5
 
             if new_bus_rank == 4:
+                print(new_bus_rank)
                 if overallnumber < 5:
                     average = 0.0
             
@@ -137,7 +139,7 @@ for i in list_of_pairs:
     matches.append([stint_list[i[1]][1],b[i[0]][0]])
 
 
-#print(matches)
+print(matches)
 
 refmatches = []
 
