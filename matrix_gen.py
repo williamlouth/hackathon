@@ -26,8 +26,6 @@ stint_list = cur.fetchall()
 cur.execute(sql.SQL("SELECT * FROM storm_student LIMIT %s offset 100;").format(),[people])
 a = cur.fetchall()
 
-
-
 b = []
 
 for i in a:
@@ -77,17 +75,7 @@ for i in matches:
     cur.execute(sql.SQL("select ref from storm_stint where id = %s;").format(),[i[0]])
     cur.execute(sql.SQL("select ref from storm_baseuser where id = %s;").format(),[i[1]])
 
+
 print(matches)
-
-
-
-
-
-
-
-
-
-
-
 
 
