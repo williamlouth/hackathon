@@ -11,11 +11,8 @@ import will
 import distance
 import timefn
 
-<<<<<<< HEAD
-=======
 #from backports import csv
 
->>>>>>> bda1d85f7075d6188427c05cfa57f2022d2699da
 import io
 
 people = 10
@@ -110,7 +107,7 @@ for i in range(len(stint_list)):
             else:
                 average += 0.03*math.log(number) #better to be more experienced
                 average += overallaverage/7.5
-                dist = distance.getdistance(student_id,stint_id)
+                dist = distance.getdistance(b[j][0],m_stint)
                 average += 0.1*math.exp(-0.7*dist)
 
             if new_bus_rank == 4:
