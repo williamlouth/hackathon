@@ -65,7 +65,7 @@ for i in range(len(stint_list)):
                 else:
                     average = overallaverage
             else:
-                average += max(0.25,(0.05*number)) #better to be more experienced
+                average += 0.03*math.log(number) #better to be more experienced
             
 
         else:
