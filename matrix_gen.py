@@ -31,12 +31,18 @@ for business in bigbusiness:
     businessids.append(business[0])
 
 print(businessids)
+
+cur.execute("select type_group,id from storm_stint where business_id in %s limit 10",(tuple(businessids),))
+stint_list = cur.fetchall()
+
+print(stint_list)
+
 ################################################################################################
 
 #cur.execute("select type_group,id from storm_stint limit 10 offset 300")
 
-cur.execute("select type_group,id from storm_stint where business_id = 454 limit 10")
-stint_list = cur.fetchall()
+#cur.execute("select type_group,id from storm_stint where business_id = 454 limit 10")
+#stint_list = cur.fetchall()
 
 # Getting students
 
