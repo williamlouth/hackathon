@@ -43,7 +43,8 @@ for i in range(len(stint_list)):
     for j in range(len(b)):
         if isinstance(stint_list[i][0],str):
             average = b[j][int(stint_list[i][0])*3+3]
-            #average = b[j][int(stint_list[i][0])*3+3]
+            number = b[j][int(stint_list[i][0])*3+2]
+            total = b[j][int(stint_list[i][0])*3+1]
 
             if average == 0.0:
 
@@ -54,7 +55,7 @@ for i in range(len(stint_list)):
                 else:
                     average = overallaverage
             else:
-                average += max(0.25,(0.1*number))
+                average += max(0.25,(0.05*number)) #better to be more experienced
             
 
         else:
