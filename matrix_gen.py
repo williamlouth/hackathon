@@ -1,3 +1,5 @@
+# Implements matching algorithm 
+
 import numpy as np
 from psycopg2 import sql
 import math
@@ -17,9 +19,13 @@ cur = conn.cursor()
 
 cur.execute("select type_group,id from storm_stint limit 10 offset 10")
 stint_list = cur.fetchall()
-#stint_list = (type_group, stint_id)
 
-# Will look like [(stint_type_index, stint_id)]
+################################################################################################
+# Getting high-level businesses #
+
+
+
+################################################################################################
 
 # Getting students
 
