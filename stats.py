@@ -10,10 +10,10 @@ def normalize(distribution, grade):
     a =  np.sum(distribution[5 - grade:]) / np.sum(distribution)
     if a ==0:
         pass
-        print(a)
-        print(distribution)
-        print("grade  " + str(grade))
-        print(distribution[5 - grade:])
+        #print(a)
+        #print(distribution)
+        #print("grade  " + str(grade))
+        #print(distribution[5 - grade:])
     return np.sum(distribution[5 - grade:]) / np.sum(distribution)
 
 
