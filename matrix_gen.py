@@ -17,15 +17,12 @@ cur = conn.cursor()
 
 # Getting stints
 
-#cur.execute("select type_group,id from storm_stint limit 10 offset 300")
 
-cur.execute("select type_group,id from storm_stint where business_id = 454 limit 10")
-stint_list = cur.fetchall()
 
 ################################################################################################
 # Getting high-level businesses #
 
-cur.execute("SELECT storm_business.id, stints.cnt FROM storm_business INNER JOIN (SELECT COUNT(*) AS cnt, business_id FROM storm_stint GROUP BY business_id) AS stints ON stints.business_id=storm_business.id ORDER BY cnt DESC;")
+cur.execute("SELECT storm_business.id, stints.cnt FROM storm_business INNER JOIN (SELECT COUNT(*) AS cnt, business_id FROM storm_stint GROUP BY business_id) AS stints ON stints.business_id=storm_business.id ORDER BY cnt DESC LIMIT 30;")
 bigbusiness = cur.fetchall()
 
 businessids = []
@@ -35,6 +32,11 @@ for business in bigbusiness:
 
 print(businessids)
 ################################################################################################
+
+#cur.execute("select type_group,id from storm_stint limit 10 offset 300")
+
+cur.execute("select type_group,id from storm_stint where business_id = 454 limit 10")
+stint_list = cur.fetchall()
 
 # Getting students
 
