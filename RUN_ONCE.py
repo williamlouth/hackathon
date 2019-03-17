@@ -9,6 +9,8 @@ import stats
 import timefn
 import datetime
 from psycopg2 import sql
+import csv
+import io
 
 ####################################################################################
 # This is a file meant to be run once to make database modifications - uncomment   #
