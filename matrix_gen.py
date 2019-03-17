@@ -17,14 +17,11 @@ cur = conn.cursor()
 
 # Getting stints
 
-cur.execute("select type_group,id from storm_stint limit 10 offset 300")
+cur.execute("select type_group,id from storm_stint limit 10 offset 300 where business_id = ")
 stint_list = cur.fetchall()
 
 ################################################################################################
 # Getting high-level businesses #
-
-
-
 ################################################################################################
 
 # Getting students
