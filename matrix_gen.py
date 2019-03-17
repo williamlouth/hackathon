@@ -15,7 +15,7 @@ import timefn
 
 import io
 
-people = 6000
+people = 1000
 number_of_stints = 10 
 
 matrix = np.zeros((people,number_of_stints))
@@ -51,7 +51,6 @@ for business in bigbusiness:
 print(number_of_stints)
 cur.execute(sql.SQL("select storm_stint.type_group,storm_stint.id from storm_stint inner join storm_business on storm_stint.business_id = storm_business.id where storm_stint.business_id in %s and storm_stint.business_id in %s limit %s"),(tuple(businessids),tuple(newids),number_of_stints))
 stint_list = cur.fetchall()
-print(stint_list)
 #number_of_stints = len(stint_list)
 
 #print(stint_list)
@@ -158,3 +157,4 @@ for i in matches:
 print(refmatches)
 ser = pd.Series(refmatches)
 ser.to_csv('output_matches.csv')
+
