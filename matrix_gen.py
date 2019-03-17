@@ -10,10 +10,10 @@ import login
 import will
 import timefn
 
-from backports import csv
+#from backports import csv
 import io
 
-people = 6000
+people = 1000
 matrix = np.zeros((people,10))
 
 conn =  login.conn
