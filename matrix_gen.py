@@ -1,3 +1,5 @@
+# Implements matching algorithm 
+
 import numpy as np
 from psycopg2 import sql
 import math
@@ -17,9 +19,13 @@ cur = conn.cursor()
 
 cur.execute("select type_group,id from storm_stint limit 10 offset 10")
 stint_list = cur.fetchall()
-#stint_list = (type_group, stint_id)
 
-# Will look like [(stint_type_index, stint_id)]
+################################################################################################
+# Getting high-level businesses #
+
+
+
+################################################################################################
 
 # Getting students
 
@@ -50,7 +56,6 @@ for i in range(len(stint_list)):
             average = 0
         
 
-        print(average)
 
         # Have implemented checking for availability below 
         # but database deletes availability instances in past
@@ -71,11 +76,20 @@ matches = []
 for i in list_of_pairs:
     matches.append([stint_list[i[1]][1],b[i[0]][0]])
 
+print(matches)
+
+refmatches = []
+
 for i in matches:
     cur.execute(sql.SQL("select ref from storm_stint where id = %s;").format(),[i[0]])
+    ref1 = cur.fetchall()[0][0]
     cur.execute(sql.SQL("select ref from storm_baseuser where id = %s;").format(),[i[1]])
+    ref2 = cur.fetchall()[0][0]
+
+    refmatches.append([ref1,ref2])
+
+print(refmatches)
 
 
-print(matches)
 
 

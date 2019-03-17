@@ -1,3 +1,6 @@
+# Adds columns storing student overall and job-specific student ratings, stint types, 
+# distribution of ratings given by businesses used to normalise student scores
+
 import pandas as pd
 import psycopg2 as py
 import login

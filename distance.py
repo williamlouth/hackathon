@@ -1,5 +1,7 @@
-from math import radians, cos, sin, asin, sqrt
 
+# Implements Haversine formula to calculate great circle distance between two points on the earth
+
+from math import radians, cos, sin, asin, sqrt
 
 def haversine(lon1, lat1, lon2, lat2):
     """
