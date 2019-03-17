@@ -8,7 +8,6 @@ def delete_smallest(A):             # deletes the smallest entry in the matrix
         A[i[0]][j[0]] = np.nan
         return A
 
-
 def count_not_nans(arr):            # counts the number of non-nans in an array
     return len(arr[~np.isnan(arr)])
 
